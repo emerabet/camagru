@@ -2,8 +2,9 @@
 
 return array (
 
-    'db_name' => "",
-    'db_user' => "",
-    'db_pwd' => ""
+    'db_host' => "localhost",
+    'db_name' => "camagru",
+    'db_user' => "root",
+    'db_pwd' => "ShopShop"
 
 );

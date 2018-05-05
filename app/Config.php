@@ -22,5 +22,12 @@ class Config {
         return self::$_instance;
     }
 
+    public function get($key)
+    {
+        if (isset($this->settings[$key]) === false)
+            return null;
+        return $this->settings[$key];
+    }
+
     
 }

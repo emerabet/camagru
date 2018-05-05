@@ -9,6 +9,6 @@ class HomeController extends Controller
     }
 
     public function home() {
-        echo "LOL";
+        $this->render('home');
     }
 }

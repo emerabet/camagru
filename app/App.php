@@ -5,7 +5,7 @@ namespace App;
 class App {
 
     private static $_instance;
-    
+    private $db_instance;    
 
     public function __construct()
     {
@@ -15,6 +15,7 @@ class App {
     public static function getInstance()
     {
         if (is_null(self::$_instance)) {
+            echo "X";
             self::$_instance = new App();
         }
         return self::$_instance;
@@ -22,10 +23,17 @@ class App {
 
     public function getDb()
     {
-        if (self::$db === null) {
-            self::$db = new Database();
+        $config = Config::getInstance();
+        if ($this->db_instance === null) 
+        {
+            $this->db_instance = new Database(
+                $config->get("db_name"), 
+                $config->get("db_user"), 
+                $config->get("db_pwd"), 
+                $config->get("db_host")
+            );
         }
-        return self::$db;
+        return $this->db_instance;
     }
 
 }

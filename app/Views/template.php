@@ -8,7 +8,14 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <?php echo $content; ?>
+    <nav class="nav flex-column flex-sm-row">
+        <a class="text-sm-center nav-link active" href="#">Home</a>
+        <a class="text-sm-center nav-link" href="#">Picture</a>
+        <a class="text-sm-center nav-link" href="#">Login</a>
+    </nav>
+    <div class="container">
+        <h1>Hello, world!</h1>
+        <?php echo $content; ?>
+    </div>
   </body>
 </html>

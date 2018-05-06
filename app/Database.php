@@ -25,7 +25,12 @@ class Database {
     {
         if ($this->pdo === null)
         {
-            $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->db", $this->user, $this->pwd);
+            try {
+                $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->db", $this->user, $this->pwd); 
+            }
+            catch (\PDOException $e) {
+                throw new \Exception('Could not connect to database');
+            }
         }
         return $this->pdo;
     }

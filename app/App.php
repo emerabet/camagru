@@ -15,7 +15,6 @@ class App {
     public static function getInstance()
     {
         if (is_null(self::$_instance)) {
-            echo "X";
             self::$_instance = new App();
         }
         return self::$_instance;

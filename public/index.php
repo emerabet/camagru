@@ -9,6 +9,7 @@ require_once "../app/Config.php";
 require_once "../app/Controllers/Controller.php";
 require_once "../app/Controllers/HomeController.php";
 require_once "../app/Controllers/AuthController.php";
+require_once "../app/Controllers/PhotoController.php";
 
 require_once "../app/Models/Model.php";
 require_once "../app/Models/Auth.php";
@@ -17,11 +18,9 @@ $app = App\App::getInstance();
 
 $db = $app->getDb();
 
-var_dump($db->getPdo());
-
+//var_dump($db);
 
 $page = $_GET['p'] ?? "";
-
 if ($page == 'home' || $page == "") {
     $controller = new App\Controllers\HomeController();
     $controller->home();
@@ -29,5 +28,15 @@ if ($page == 'home' || $page == "") {
 
 else if ($page == 'login') {
     $controller = new App\Controllers\AuthController();
-    $controller->auth();
+    $controller->index();
+}
+
+else if ($page == 'register') {
+    $controller = new App\Controllers\AuthController();
+    $controller->register();
+}
+
+else if ($page == 'photo') {
+    $controller = new App\Controllers\PhotoController();
+    $controller->index();
 }

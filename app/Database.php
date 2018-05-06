@@ -27,6 +27,7 @@ class Database {
         {
             try {
                 $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->db", $this->user, $this->pwd); 
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch (\PDOException $e) {
                 throw new \Exception('Could not connect to database');

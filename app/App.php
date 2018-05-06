@@ -5,7 +5,7 @@ namespace App;
 class App {
 
     private static $_instance;
-    private $db_instance;    
+    private $db_instance;
 
     public function __construct()
     {
@@ -35,4 +35,17 @@ class App {
         return $this->db_instance;
     }
 
+    public function getToken()
+    {
+        if (!isset($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['token'];
+    }
+
+    public function refreshToken()
+    {
+        unset($_SESSION['token']);
+        return $this->getToken();
+    }
 }

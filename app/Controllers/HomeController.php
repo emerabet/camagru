@@ -8,7 +8,8 @@ class HomeController extends Controller
         parent::__construct();
     }
 
-    public function home() {
+    public function home() 
+    {
 
 
 

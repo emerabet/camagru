@@ -16,7 +16,7 @@ class User extends Model
         try {
             $sql = $this->db->getPdo()->prepare(
                 "INSERT INTO `user` (`name`, `email`, `password`, `verified`, `role`) 
-                            VALUES (:name, :email, :password, :verified, 2)");
+                            VALUES (:name, :email, :password, :verified, -1)");
             $sql->bindParam(':name', $username);
             $sql->bindParam(':email', $mail);
             $sql->bindParam(':password', $password);
@@ -46,6 +46,38 @@ class User extends Model
         }
     }
 
+    public function find_by_email_username($email, $username)
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `verified`, `role` FROM `user` WHERE `name` = :name AND `email` = :email;");
+            $sql->bindParam(':name', $username);
+            $sql->bindParam(':email', $email);
+            $sql->execute();
+            $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
+            if ($res === true)
+                return $sql->fetch();
+            return false;
+        }
+        catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function reset_password($key, $password, $newkey)
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("UPDATE `user` SET `password`=:pwd, `verified`=:newkey WHERE `verified`=:oldkey AND `role` > -1;");
+            $sql->bindParam(':pwd', $password);
+            $sql->bindParam(':oldkey', $key);
+            $sql->bindParam(':newkey', $newkey);            
+            $sql->execute();
+            return $sql->rowCount();
+        }
+        catch (\PDOException $e) {
+            return false;
+        }
+    }
+
     public function edit($args, $id)
     {
         try {
@@ -64,7 +96,6 @@ class User extends Model
             return $sql->rowCount();
         }
         catch (\PDOException $e) {
-            var_dump($e);
             return false;
         }
     }

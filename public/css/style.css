@@ -38,3 +38,22 @@
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
+
+.my-wrapper {
+    position: relative;
+}
+
+.my-area {
+    background-color: grey;
+}
+
+.my-deco {
+    position: absolute;
+    z-index: 1;
+}
+
+canvas {
+    background-color: blue; 
+    /*width: 100%;*/
+    /*height: auto;*/
+  }

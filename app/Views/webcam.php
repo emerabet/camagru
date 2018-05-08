@@ -6,69 +6,14 @@
 </div>
 <div class="row">
     <p id="video-text" class="video-text">Veuillez demarrer la cam pour prendre des photos</p>
-    <div id="embed-video" class="col-sm-12 embed-responsive embed-responsive-4by3 my-video" style="display: none;">
-        <video class="embed-responsive-item"></video>
+    <div class="col-sm-12">
+        <div id="my-wrapper" class="my-wrapper">
+           <!--  <img class="img-fluid my-deco" src="img/hadoken.png" /> -->
+            <video id="embed-video" class="embed-responsive embed-responsive-4by3 my-video" style="display: none;"></video>
+        </div>
+        <canvas id="canvas" class="embed-responsive embed-responsive-16by9" style="display: none;" height="300">
+              Sorry, your browser doesn't support the &lt;canvas&gt; element.
+        </canvas>
     </div>
 </div>
-
-<script>
-var started = false;
-var onoff = document.getElementById("btn-onoff");
-
-var txt = document.getElementById("video-text");
-var embed_video = document.getElementById("embed-video");
-
-if (onoff)
-    onoff.addEventListener("click", toggleVideo);
-
-function toggleVideo() {
-    txt.style.display = txt.style.display === 'none' ? '' : 'none';
-    embed_video.style.display = embed_video.style.display === 'none' ? '' : 'none';
-    if (started === false)
-        startStream();
-    else
-        stopStream();
-}
-
-var live = null;
-function startStream() {
-    var constraints = { 
-        audio: false, 
-        video: 
-        { 
-            width: { min: 1024, ideal: 1280, max: 1920 },
-            height: { min: 576, ideal: 720, max: 1080 }, 
-        }};
-
-    navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
-    var video = document.querySelector('video');
-    live = video;
-    video.srcObject = mediaStream;
-
-    video.onloadedmetadata = function(e) 
-    {
-        started = true;
-        video.play();
-    };
-    }).catch(function(err) { 
-            console.log(err.name + ": " + err.message); 
-            return false;
-    });
-}
-
-function stopStream() {
-
-    if (live) {
-        let stream = live.srcObject;
-        let tracks = stream.getTracks();
-
-        tracks.forEach(function(track) {
-            track.stop();
-        });
-        started = false;
-        live.srcObject = null;
-        return true;
-    }
-    return false;
-}
-</script>
+<div id="set-img" class="d-flex align-content-stretch flex-wrap my-area"><img id="img-hado" draggable="true" class="img-fluid" src="img/hadoken.png" /><img id="img-champ" draggable="true" class="img-fluid" src="img/champ.png" /></div>

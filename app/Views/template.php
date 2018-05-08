@@ -29,9 +29,12 @@
         </main>
         <div class="col-sm-12 col-md-4">
           <h1>test</h1>
+          <ul id="side-img" class="list-group"></ul>
         </div>
       </div>
     </div>
     <script src="js/popup.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/dragdrop.js"></script>
 </body>
 </html>

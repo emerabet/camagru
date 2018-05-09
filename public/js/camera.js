@@ -7,36 +7,68 @@ var wp = document.getElementById("my-wrapper");
 var btnTake = document.getElementById("btn-take");
 var canvas = document.getElementById('canvas');
 var side = document.getElementById('side-img');
+var btnSave = document.getElementById('btn-save');
+var btnCancel = document.getElementById('btn-cancel');
 
-var selectedimg = null;
-
-var el = document.getElementById("img-hado");
-el.addEventListener('click', function () { 
-    selectedimg = el;
-});
 
 if (onoff)
     onoff.addEventListener("click", toggleVideo);
 
 if (btnTake)
     btnTake.addEventListener('click', function(ev){
-      takepicture();
+        if (items.length > 0)
+            takepicture();
+        else
+            alert("Ajoutez une image avant");
       ev.preventDefault();
     }, false);
+
+if (btnSave)
+    addEventListener('click', savePicture);
+
+if (btnCancel)
+    addEventListener('click', cancelPicture);
+
+startStream();
+
+function startStream() {
+    var constraints = { 
+        audio: false, 
+        video: 
+            { 
+                width: { min: 1024, ideal: 1280, max: 1920 },
+                height: { min: 576, ideal: 720, max: 1080 }, 
+            }};
+    
+        navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+        var video = document.querySelector('video');
+        live = video;
+        video.srcObject = mediaStream;
+    
+        video.onloadedmetadata = function(e) 
+        {
+            started = true;
+            video.play();
+        };
+        }).catch(function(err) { 
+                console.log(err.name + ": " + err.message); 
+                return false;
+        });
+}
 
 function takepicture() {
     var context = canvas.getContext('2d');
     width = 1280;
     height = 720;
     if (width && height) {
-      canvas.width = wp.clientWidth;
-      canvas.height = wp.clientHeight;
+      canvas.width = embed_video.clientWidth;
+      canvas.height = embed_video.clientHeight;
 
-      context.drawImage(live, 0, 0, wp.clientWidth, wp.clientHeight);
-      context.drawImage(selectedimg, 0, 0, 320, 320);
+      context.drawImage(live, 0, 0, embed_video.clientWidth, embed_video.clientHeight);
     
       var data = canvas.toDataURL('image/png');
-      addPictureToSidebar(data);
+      toggleVideo();
+      //addPictureToSidebar(data);
       //photo.setAttribute('src', data);
     } else {
       //clearphoto();
@@ -46,10 +78,11 @@ function takepicture() {
 function toggleVideo() {
     txt.style.display = txt.style.display === 'none' ? '' : 'none';
     embed_video.style.display = embed_video.style.display === 'none' ? '' : 'none';
-    if (started === false)
+    canvas.style.display = canvas.style.display === 'none' ? '' : 'none';
+    /*if (started === false)
         startStream();
     else
-        stopStream();
+        stopStream();*/
 }
 
 function addPictureToSidebar(photo)
@@ -68,31 +101,6 @@ function addPictureToSidebar(photo)
         side.prepend(li);
 }
 
-function startStream() {
-    var constraints = { 
-        audio: false, 
-        video: 
-        { 
-            width: { min: 1024, ideal: 1280, max: 1920 },
-            height: { min: 576, ideal: 720, max: 1080 }, 
-        }};
-
-    navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
-    var video = document.querySelector('video');
-    live = video;
-    video.srcObject = mediaStream;
-
-    video.onloadedmetadata = function(e) 
-    {
-        started = true;
-        video.play();
-    };
-    }).catch(function(err) { 
-            console.log(err.name + ": " + err.message); 
-            return false;
-    });
-}
-
 function stopStream() {
     if (live) {
         let stream = live.srcObject;
@@ -107,4 +115,14 @@ function stopStream() {
         return true;
     }
     return false;
+}
+
+
+function savePicture()
+{
+
+}
+
+function cancelPicture() {
+    location.reload();
 }

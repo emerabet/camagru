@@ -36,7 +36,7 @@ class Controller
 
     protected function check_password_strength($password)
     {
-        if (preg_match("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}", $password) > 0)
+        if (preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/', $password) > 0)
             return true;
         return false;
     }

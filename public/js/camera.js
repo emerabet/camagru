@@ -24,10 +24,10 @@ if (btnTake)
     }, false);
 
 if (btnSave)
-    addEventListener('click', savePicture);
+    btnSave.addEventListener('click', savePicture);
 
 if (btnCancel)
-    addEventListener('click', cancelPicture);
+    btnCancel.addEventListener('click', cancelPicture);
 
 startStream();
 
@@ -56,6 +56,8 @@ function startStream() {
         });
 }
 
+var toSave = null;
+
 function takepicture() {
     var context = canvas.getContext('2d');
     width = 1280;
@@ -67,6 +69,8 @@ function takepicture() {
       context.drawImage(live, 0, 0, embed_video.clientWidth, embed_video.clientHeight);
     
       var data = canvas.toDataURL('image/png');
+
+      toSave = { img : data, itms : items }
       toggleVideo();
       //addPictureToSidebar(data);
       //photo.setAttribute('src', data);
@@ -120,9 +124,15 @@ function stopStream() {
 
 function savePicture()
 {
-
+    var obj = JSON.stringify(toSave);
+    var xmlhttp = sendPostAjax("index.php?p=photo.save");
+    xmlhttp.onload = function () {
+        alert(xmlhttp.responseText);
+    };
+    xmlhttp.send("data=" + obj);
 }
 
-function cancelPicture() {
+function cancelPicture() 
+{
     location.reload();
 }

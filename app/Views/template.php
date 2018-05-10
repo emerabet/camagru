@@ -36,5 +36,6 @@
     <script src="js/popup.js"></script>
     <script src="js/camera.js"></script>
     <script src="js/dragdrop.js"></script>
+    <script src="js/ajax.js"></script>
 </body>
 </html>

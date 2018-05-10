@@ -85,6 +85,11 @@ else if (isset($_SESSION['user_logged']) === true)
         $controller->index();
     }
 
+    else if ($page == 'photo.save') {
+        $controller = new App\Controllers\PhotoController();
+        $controller->save();
+    }
+
     else {
         $controller = new App\Controllers\HomeController();
         $controller->home();

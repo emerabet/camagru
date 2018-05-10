@@ -15,8 +15,6 @@
               Sorry, your browser doesn't support the &lt;canvas&gt; element.
             </canvas> 
         </div>
-        
-         
     </div>
 </div>
 <div id="set-img" class="d-flex align-content-stretch flex-wrap my-area"><img id="img-hado" draggable="true" class="img-fluid" src="img/hadoken.png" /><img id="img-champ" draggable="true" class="img-fluid" src="img/champ.png" /></div>

@@ -33,6 +33,7 @@
         </div>
       </div>
     </div>
+    <?php echo $loadjs; ?>
     <script src="js/popup.js"></script>
     <script src="js/camera.js"></script>
     <script src="js/dragdrop.js"></script>

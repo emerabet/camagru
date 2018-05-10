@@ -66,6 +66,8 @@ function takepicture() {
       canvas.width = embed_video.clientWidth;
       canvas.height = embed_video.clientHeight;
 
+    //  context.drawImage(live, 0, 0, width, height);
+    //  context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(live, 0, 0, embed_video.clientWidth, embed_video.clientHeight);
     
       var data = canvas.toDataURL('image/png');

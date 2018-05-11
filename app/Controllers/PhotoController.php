@@ -30,7 +30,7 @@ class PhotoController extends Controller
             $str = str_replace('data:image/png;base64,', '', $o->img);
             $str = str_replace(' ', '+', $str);
             $name = bin2hex(random_bytes(16));
-            var_dump($o);
+
             $im = imagecreatefromstring(base64_decode($str));
             if ($im !== false) 
             {
@@ -38,7 +38,6 @@ class PhotoController extends Controller
                 $path = __ROOT__ . "/upload/$name.png";
                 file_put_contents($path, base64_decode($str));
                 list($width, $height) = getimagesize($path);
-                
                 $base = imagecreatefrompng($path);
                 foreach ($o->itms as $key => $value) {
                     $f = $this->getPathSticker($value->id);

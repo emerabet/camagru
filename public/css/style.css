@@ -45,7 +45,16 @@
 }
 
 .my-area {
-    background-color: grey;
+    background-color: #d4d4d4;
+}
+
+.my-area > img {
+    width:150px;
+    height: 150px;
+}
+
+.my-area > button {
+    border-radius:0px;
 }
 
 .my-deco {

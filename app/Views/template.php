@@ -33,6 +33,7 @@
         </div>
       </div>
     </div>
+    <footer class="footer">emerabet</footer>
     <?php echo $loadjs; ?>
     <script src="js/popup.js"></script>
     <script src="js/camera.js"></script>

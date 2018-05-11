@@ -1,6 +1,5 @@
 var started = false;
 var live = null;
-var onoff = document.getElementById("btn-onoff");
 var txt = document.getElementById("video-text");
 var embed_video = document.getElementById("embed-video");
 var wp = document.getElementById("my-wrapper");
@@ -9,10 +8,6 @@ var canvas = document.getElementById('canvas');
 var side = document.getElementById('side-img');
 var btnSave = document.getElementById('btn-save');
 var btnCancel = document.getElementById('btn-cancel');
-
-
-if (onoff)
-    onoff.addEventListener("click", toggleVideo);
 
 if (btnTake)
     btnTake.addEventListener('click', function(ev){
@@ -71,8 +66,8 @@ function takepicture() {
       context.drawImage(live, 0, 0, embed_video.clientWidth, embed_video.clientHeight);
     
       var data = canvas.toDataURL('image/png');
-
-      toSave = { img : data, itms : items }
+        var title = document.getElementById("title-img").value;
+      toSave = { title: title, img : data, itms : items }
       toggleVideo();
       //addPictureToSidebar(data);
       //photo.setAttribute('src', data);
@@ -82,13 +77,8 @@ function takepicture() {
 }
 
 function toggleVideo() {
-    txt.style.display = txt.style.display === 'none' ? '' : 'none';
     embed_video.style.display = embed_video.style.display === 'none' ? '' : 'none';
     canvas.style.display = canvas.style.display === 'none' ? '' : 'none';
-    /*if (started === false)
-        startStream();
-    else
-        stopStream();*/
 }
 
 function addPictureToSidebar(photo)

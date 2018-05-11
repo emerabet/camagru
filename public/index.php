@@ -17,6 +17,7 @@ require_once "../app/Controllers/UserController.php";
 require_once "../app/Models/Model.php";
 require_once "../app/Models/Auth.php";
 require_once "../app/Models/User.php";
+require_once "../app/Models/Photo.php";
 
 $app = App\App::getInstance();
 $app->getToken();

@@ -49,8 +49,8 @@
 }
 
 .my-area > img {
-    width:150px;
-    height: 150px;
+    width:10%;
+    height: 10%;
 }
 
 .my-area > button {
@@ -60,6 +60,19 @@
 .my-deco {
     position: absolute;
     z-index: 1;
+}
+
+.msg-info {
+    min-height: 300px;
+}
+
+.my-area > label {
+    margin-bottom: 0;
+    border-radius:0px;
+}
+
+#set-img {
+    min-height: 100px;
 }
 
 canvas {

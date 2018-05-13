@@ -6,19 +6,18 @@
         <input type="text" id="title-img" value=""/>
     </div>
 </div>
-<div class="row first-step">
-    <div class="col-sm-12">
-        <button id="btn-webcam" class="btn">Webcam</button>
-        <button id="btn-upload" class="btn">Upload</button>
-    </div>
-</div>
 
 <div id="set-tool" class="d-flex justify-content-start my-area">
-        <button id="zoom-in" class="btn btn-info">+</button>
-        <button id="zoom-out" class="btn btn-info">-</button>
-        <button id="btn-take" class="btn btn-info">Prendre une photo</button>
-        <button id="btn-save" class="btn btn-success">Sauvegarder</button>
-        <button id="btn-cancel" class="btn btn-warning">Annuler</button>
+    <button id="btn-webcam" class="btn">Webcam</button>
+    <label class="btn btn-primary" for="my-file-selector">
+        <input id="my-file-selector" type="file" onchange="readURL(this);" style="display:none;">
+        Upload
+    </label>
+    <button id="zoom-out" class="btn btn-info disabled" style="display:none;">-</button>
+    <button id="zoom-in" class="btn btn-info disabled" style="display:none;">+</button>
+    <button id="btn-take" class="btn btn-info disabled" style="display:none;">Prendre une photo</button>
+    <button id="btn-save" class="btn btn-success disabled" style="display:none;">Sauvegarder</button>
+    <button id="btn-cancel" class="btn btn-warning" style="display:none;">Annuler</button>
 </div>
 <div class="row">
     <div class="col-sm-12">
@@ -26,7 +25,7 @@
             <video id="embed-video" class="embed-responsive embed-responsive-4by3 my-video"></video>
             <canvas id="canvas" class="embed-responsive embed-responsive-16by9" style="display: none;" height="300">
               Sorry, your browser doesn't support the &lt;canvas&gt; element.
-            </canvas> 
+            </canvas>
         </div>
     </div>
 </div>

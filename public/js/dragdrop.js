@@ -1,3 +1,6 @@
+var zoomout = document.getElementById("zoom-out");
+var zoomin = document.getElementById("zoom-in");
+
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -13,18 +16,55 @@ function drag(ev) {
 }
 
 var test = null;
-var dd =null;
+var dd = null;
 
 var items = [];
 
-function updateItems(itm)
-{
+function removeItem(itm) {
     items = items.filter(function(el) {
         return el.id !== itm.id;
     });
+}
+
+function updateItems(itm)
+{
+    removeItem(itm);
     items.push(itm);
 
+    updateState();
+
     console.log(items);
+}
+
+function updateState() {
+    if (items.length === 0) {
+        btnSave.style.display = 'none';
+        zoomin.style.display = 'none';
+        zoomout.style.display = 'none';
+
+        btnSave.classList.add('disabled');
+        zoomin.classList.add('disabled');
+        zoomout.classList.add('disabled');
+        btnCancel.classList.add('disabled');
+
+        btnTake.classList.add('disabled');
+        btnTake.style.display = 'none';
+    }
+    else {
+        btnSave.style.display = '';
+        zoomin.style.display = '';
+        zoomout.style.display = '';
+
+        if (started === true) {
+            btnTake.classList.remove('disabled');
+            btnTake.style.display = '';
+        }
+
+        btnSave.classList.remove('disabled');
+        zoomin.classList.remove('disabled');
+        zoomout.classList.remove('disabled');
+        btnCancel.classList.remove('disabled');
+    }
 }
 
 function add_itm(target, itm, x, y) {
@@ -72,6 +112,8 @@ function drop(ev) {
             itm.style.top = null;
             itm.style.left = null;
             ev.target.appendChild(itm);
+            removeItem(itm);
+            updateState();
         }
         else if (ev.target.parentElement.id == "my-wrapper") {
             if (ev.target.id == "embed-video") {
@@ -100,8 +142,8 @@ if (wpimg) {
 }
 
 
-document.getElementById("zoom-in").addEventListener("click", zoom);
-document.getElementById("zoom-out").addEventListener("click", zoom);
+zoomin.addEventListener("click", zoom);
+zoomout.addEventListener("click", zoom);
 
 function zoom(e)
 {

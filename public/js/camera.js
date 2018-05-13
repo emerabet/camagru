@@ -12,7 +12,7 @@ var btnCancel = document.getElementById('btn-cancel');
 if (btnTake)
     btnTake.addEventListener('click', function(ev){
         if (items.length > 0)
-            takepicture();
+            storeToCanva(live, embed_video);
         else
             alert("Ajoutez une image avant");
       ev.preventDefault();
@@ -24,31 +24,66 @@ if (btnSave)
 if (btnCancel)
     btnCancel.addEventListener('click', cancelPicture);
 
-startStream();
+var newimage = new Image();
+
+newimage.classList.add("img-fluid");
+newimage.id = "upload-img"
+newimage.onload = function() {
+    wp.appendChild(newimage);
+    stopStream();
+    embed_video.style.display = 'none';
+    newimage.style.display = '';
+
+    btnTake.classList.add('disabled');
+    btnTake.style.display = 'none';
+};
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            newimage.src = e.target.result;
+            console.log(e);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+document.getElementById('btn-webcam')
+        .addEventListener('click', function() {
+    if (started === false) { 
+        startStream();
+    };
+});
 
 function startStream() {
     var constraints = { 
         audio: false, 
-        video: 
-            { 
+        video: { 
                 width: { min: 1024, ideal: 1280, max: 1920 },
                 height: { min: 576, ideal: 720, max: 1080 }, 
-            }};
+        }
+    };
     
-        navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+    navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
         var video = document.querySelector('video');
         live = video;
         video.srcObject = mediaStream;
-    
-        video.onloadedmetadata = function(e) 
-        {
+        
+        video.onloadedmetadata = function(e) {
             started = true;
+            embed_video.style.display = '';
+            newimage.style.display = 'none';
+            updateState();
             video.play();
         };
-        }).catch(function(err) { 
-                console.log(err.name + ": " + err.message); 
-                return false;
-        });
+    }).catch(function(err) { 
+        // console.log(err.name + ": " + err.message); 
+        started = false;
+        return false;
+    });
 }
 
 var toSave = null;
@@ -61,14 +96,13 @@ function takepicture() {
       canvas.width = embed_video.clientWidth;
       canvas.height = embed_video.clientHeight;
 
-    //  context.drawImage(live, 0, 0, width, height);
-    //  context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(live, 0, 0, embed_video.clientWidth, embed_video.clientHeight);
     
       var data = canvas.toDataURL('image/png');
-        var title = document.getElementById("title-img").value;
+      var title = document.getElementById("title-img").value;
       toSave = { title: title, img : data, itms : items }
-      toggleVideo();
+      canvas.style.display = '';
+      embed_video.style.display = 'none';
       //addPictureToSidebar(data);
       //photo.setAttribute('src', data);
     } else {
@@ -76,9 +110,23 @@ function takepicture() {
     }
 }
 
-function toggleVideo() {
-    embed_video.style.display = embed_video.style.display === 'none' ? '' : 'none';
-    canvas.style.display = canvas.style.display === 'none' ? '' : 'none';
+function storeToCanva(src, wrap) {
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    width = 1280;
+    height = 720;
+    if (width && height) {
+      canvas.width = wrap.clientWidth;
+      canvas.height = wrap.clientHeight;
+      context.drawImage(src, 0, 0, wrap.clientWidth, wrap.clientHeight);
+
+      var data = canvas.toDataURL('image/png');
+      var title = document.getElementById("title-img").value;
+      toSave = { title: title, img : data, itms : items }
+
+      wrap.style.display = 'none';
+      canvas.style.display = '';
+    }
 }
 
 function addPictureToSidebar(photo)
@@ -113,15 +161,19 @@ function stopStream() {
     return false;
 }
 
-
 function savePicture()
 {
-    var obj = JSON.stringify(toSave);
-    var xmlhttp = sendPostAjax("index.php?p=photo.save");
-    xmlhttp.onload = function () {
-        alert(xmlhttp.responseText);
-    };
-    xmlhttp.send("data=" + obj);
+    if (started === false) {
+        storeToCanva(newimage, newimage);
+    }
+    if (toSave !== null && toSave.itms.length > 0 && toSave.img != '') {
+        var obj = JSON.stringify(toSave);
+        var xmlhttp = sendPostAjax("index.php?p=photo.save");
+        xmlhttp.onload = function () {
+            alert(xmlhttp.responseText);
+        };
+        xmlhttp.send("data=" + obj);
+    }
 }
 
 function cancelPicture() 

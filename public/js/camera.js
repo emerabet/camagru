@@ -11,8 +11,10 @@ var btnCancel = document.getElementById('btn-cancel');
 
 if (btnTake)
     btnTake.addEventListener('click', function(ev){
-        if (items.length > 0)
+        if (items.length > 0) {
             storeToCanva(live, embed_video);
+            removeEvent();
+        }
         else
             alert("Ajoutez une image avant");
       ev.preventDefault();
@@ -31,6 +33,7 @@ newimage.id = "upload-img"
 newimage.onload = function() {
     wp.appendChild(newimage);
     stopStream();
+    setEvent();
     embed_video.style.display = 'none';
     newimage.style.display = '';
 
@@ -77,6 +80,7 @@ function startStream() {
             embed_video.style.display = '';
             newimage.style.display = 'none';
             updateState();
+            setEvent();
             video.play();
         };
     }).catch(function(err) { 
@@ -87,28 +91,6 @@ function startStream() {
 }
 
 var toSave = null;
-
-function takepicture() {
-    var context = canvas.getContext('2d');
-    width = 1280;
-    height = 720;
-    if (width && height) {
-      canvas.width = embed_video.clientWidth;
-      canvas.height = embed_video.clientHeight;
-
-      context.drawImage(live, 0, 0, embed_video.clientWidth, embed_video.clientHeight);
-    
-      var data = canvas.toDataURL('image/png');
-      var title = document.getElementById("title-img").value;
-      toSave = { title: title, img : data, itms : items }
-      canvas.style.display = '';
-      embed_video.style.display = 'none';
-      //addPictureToSidebar(data);
-      //photo.setAttribute('src', data);
-    } else {
-      //clearphoto();
-    }
-}
 
 function storeToCanva(src, wrap) {
     var context = canvas.getContext('2d');
@@ -122,6 +104,7 @@ function storeToCanva(src, wrap) {
 
       var data = canvas.toDataURL('image/png');
       var title = document.getElementById("title-img").value;
+
       toSave = { title: title, img : data, itms : items }
 
       wrap.style.display = 'none';
@@ -164,12 +147,23 @@ function stopStream() {
 function savePicture()
 {
     if (started === false) {
+        newimage.style.display = '';
+        canvas.style.display = 'none';
         storeToCanva(newimage, newimage);
     }
-    if (toSave !== null && toSave.itms.length > 0 && toSave.img != '') {
+    if (toSave !== null && toSave.itms.length > 0 && toSave.title != '' && toSave.img != 'data:,' && toSave.img != '') {
         var obj = JSON.stringify(toSave);
         var xmlhttp = sendPostAjax("index.php?p=photo.save");
-        xmlhttp.onload = function () {
+        xmlhttp.onload = function () {          
+            canvas.style.display = 'none';
+            toSave.img = '';
+            if (started === true) {                
+                embed_video.style.display = '';          
+            }
+            else {
+                newimage.style.display = '';
+            }
+            setEvent();
             alert(xmlhttp.responseText);
         };
         xmlhttp.send("data=" + obj);

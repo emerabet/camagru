@@ -10,9 +10,13 @@ class HomeController extends Controller
 
     public function home() 
     {
-
-
-
         $this->render('home');
+    }
+
+    public function load()
+    {
+        $app = \App\App::getInstance();
+        $args = [];
+        $errors = [];
     }
 }

@@ -6,7 +6,6 @@ class Photo extends Model
 {
     public function add($title, $name, $id_user)
     {
-        echo $name;
         try {
             $sql = $this->db->getPdo()->prepare(
                 "INSERT INTO `photo` (`title`, `name`, `created`, `id_user`) 
@@ -19,7 +18,23 @@ class Photo extends Model
             return true;
         }
         catch(\PDOException $e) {
-            var_dump($e);
+            return false;
+        }
+    }
+
+    public function getByUserId($id)
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("SELECT `id`, `title`, `name`, `created` FROM `photo` WHERE `id` = :id");
+            $sql->bindParam(':id', $id);
+            
+            $sql->execute();
+            $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
+            if ($res === true)
+                return $sql->fetchAll();
+            return false;
+        }
+        catch (\PDOException $e) {
             return false;
         }
     }

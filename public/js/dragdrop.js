@@ -129,21 +129,37 @@ function drop(ev) {
 setimg = document.getElementById("set-img");
 wpimg = document.getElementById("my-wrapper");
 
-document.getElementById("img-hado").addEventListener("dragstart", drag);
-document.getElementById("img-champ").addEventListener("dragstart", drag);
+function setEvent() {
+    document.getElementById("img-hado").addEventListener("dragstart", drag);
+    document.getElementById("img-champ").addEventListener("dragstart", drag);
 
-if (setimg) {
-    setimg.addEventListener("drop", drop);
-    setimg.addEventListener("dragover", allowDrop);
+    if (setimg) {
+        setimg.addEventListener("drop", drop);
+        setimg.addEventListener("dragover", allowDrop);
+    }
+    if (wpimg) {
+        wpimg.addEventListener("drop", drop);
+        wpimg.addEventListener("dragover", allowDrop);
+    }
+    zoomin.addEventListener("click", zoom);
+    zoomout.addEventListener("click", zoom);
 }
-if (wpimg) {
-    wpimg.addEventListener("drop", drop);
-    wpimg.addEventListener("dragover", allowDrop);
+
+function removeEvent() {
+    document.getElementById("img-hado").removeEventListener("dragstart", drag);
+    document.getElementById("img-champ").removeEventListener("dragstart", drag);
+
+    if (setimg) {
+        setimg.removeEventListener("drop", drop);
+        setimg.removeEventListener("dragover", allowDrop);
+    }
+    if (wpimg) {
+        wpimg.removeEventListener("drop", drop);
+        wpimg.removeEventListener("dragover", allowDrop);
+    }
+    zoomin.removeEventListener("click", zoom);
+    zoomout.removeEventListener("click", zoom);
 }
-
-
-zoomin.addEventListener("click", zoom);
-zoomout.addEventListener("click", zoom);
 
 function zoom(e)
 {

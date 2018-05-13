@@ -18,14 +18,33 @@ class PhotoController extends Controller
         return null;
     }
 
+    private function check($o)
+    {
+        $errors = [];
+
+        $title = $o->title ?? "";
+
+        if ($title == "")
+            $errors[] = "Titre manquant";
+        
+        if (isset($o->itms) === false || count($o->itms) === 0)
+            $errors[] = "Aucun sticker trouve";
+
+        return $errors;
+    }
+
     public function save()
     {
         $res = false;
         if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
             http_response_code(404);
         
-        if (isset($_POST['data']))
+        if (isset($_POST['data'])) 
+        {
             $o = json_decode($_POST['data']);
+            $errors = $this->check($o);
+            if (count($errors) > 0)
+                http_response_code(404);
 
             $str = str_replace('data:image/png;base64,', '', $o->img);
             $str = str_replace(' ', '+', $str);
@@ -62,7 +81,29 @@ class PhotoController extends Controller
                 $model = new \App\Models\Photo($db);
                 $final = $name . ".png";
                 $model->add($o->title, $final, $_SESSION['user_logged']['id']);
+                $errors[] = "Image sauvegardée";
+                $this->display_msg($errors);
+                http_response_code(200);
             }
-        http_response_code(200);
+            else
+            {
+                imagedestroy($im);
+                $errors[] = "Image incorrecte";
+                $this->display_msg($errors);
+                http_response_code(406);
+            }
+        }
+    }
+
+
+    public function load($id = -1)
+    {
+        if ($id === -1) {
+            $id = $_SESSION['user_logged']['id'];
+        }
+
+        $app = \App\App::getInstance();
+        $db = $app->getDb();
+        $model = new \App\Models\Photo($db);
     }
 }

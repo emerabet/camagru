@@ -91,6 +91,11 @@ else if (isset($_SESSION['user_logged']) === true)
         $controller->save();
     }
 
+    else if ($page == 'photo.user') {
+        $controller = new App\Controllers\PhotoController();
+        $controller->load();
+    }
+
     else {
         $controller = new App\Controllers\HomeController();
         $controller->home();

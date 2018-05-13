@@ -41,4 +41,8 @@ class Controller
             return true;
         return false;
     }
+
+    protected function display_msg($errors) {
+        require (__ROOT__ . "/app/Views/msg.php");
+    }
 }

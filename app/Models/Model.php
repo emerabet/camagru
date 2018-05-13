@@ -9,4 +9,6 @@ class Model
     public function __construct(\App\Database $db) {
         $this->db = $db;
     }
+
+   
 }

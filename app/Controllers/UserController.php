@@ -50,7 +50,6 @@ class UserController extends Controller
                 $user['name'] = $username;
                 if ($chk === true)
                 {
-                    var_dump($pwd1);
                     $pass = password_hash($pwd1, PASSWORD_DEFAULT);
                     $user['password'] = $pass;
                 }
@@ -62,9 +61,6 @@ class UserController extends Controller
                     $_SESSION['user_logged'] = $user;
                     $this->index($args);
                 }
-
-                var_dump($_POST, $chk);
-                var_dump($_SESSION['user_logged'], $user);
             }
         }
     }

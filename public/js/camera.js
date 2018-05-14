@@ -112,22 +112,6 @@ function storeToCanva(src, wrap) {
     }
 }
 
-function addPictureToSidebar(photo)
-{
-    var li = document.createElement('LI');
-    li.classList.add("list-group-item");
-    li.setAttribute('id', Date.now());
-
-    var img = document.createElement("IMG");
-    img.classList.add("img-fluid");
-    img.setAttribute('id', Date.now());
-    img.setAttribute('src', photo);
-
-    li.appendChild(img);
-    if (side)
-        side.prepend(li);
-}
-
 function stopStream() {
     if (live) {
         let stream = live.srcObject;
@@ -150,7 +134,11 @@ function savePicture()
         newimage.style.display = '';
         canvas.style.display = 'none';
         storeToCanva(newimage, newimage);
+        console.log("ici");
     }
+    if (toSave)
+        toSave.title = document.getElementById("title-img").value;
+
     if (toSave !== null && toSave.itms.length > 0 && toSave.title != '' && toSave.img != 'data:,' && toSave.img != '') {
         var obj = JSON.stringify(toSave);
         var xmlhttp = sendPostAjax("index.php?p=photo.save");
@@ -164,10 +152,43 @@ function savePicture()
                 newimage.style.display = '';
             }
             setEvent();
+            loadPicturesUser();
             alert(xmlhttp.responseText);
         };
         xmlhttp.send("data=" + obj);
     }
+}
+
+loadPicturesUser();
+function loadPicturesUser() {
+    var x2 = sendGetAjax("index.php?p=photo.user");
+    x2.onload = function () {
+        if (x2.status === 200) {
+            var json = JSON.parse(x2.responseText);
+
+            side.innerHTML = '';
+            json.forEach(element => {
+                addPictureToSidebar("../upload/" + element.name);
+            });
+        }
+    }
+    x2.send();
+}
+
+function addPictureToSidebar(photo)
+{
+    var li = document.createElement('LI');
+    li.classList.add("list-group-item");
+    li.setAttribute('id', Date.now());
+
+    var img = document.createElement("IMG");
+    img.classList.add("img-fluid");
+    img.setAttribute('id', Date.now());
+    img.setAttribute('src', photo);
+
+    li.appendChild(img);
+    if (side)
+        side.append(li);
 }
 
 function cancelPicture() 

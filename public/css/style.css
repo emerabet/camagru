@@ -79,4 +79,36 @@ canvas {
     background-color: blue; 
     /*width: 100%;*/
     /*height: auto;*/
-  }
+}
+
+.my-gallery > picture {
+    position : relative;
+    width:30%;
+    margin:0.4em;
+}
+
+.img-thumbnail {
+    padding: 0;
+    border: 0px solid #dee2e6;
+    border-radius: .25rem;
+}
+
+.name-photo {
+    background-color: #20202033;
+    position : absolute;
+    top:0;
+}
+
+@media screen and (max-width: 991.98px) { 
+    .my-gallery > picture {
+
+        width:45%;
+    }
+}
+
+@media screen and (max-width: 640px){
+    .my-gallery > picture {
+        width:100%;
+    }
+}
+

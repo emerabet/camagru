@@ -42,7 +42,7 @@ class Controller
         return false;
     }
 
-    protected function display_msg($errors) {
+    protected function display_msg($msgs) {
         require (__ROOT__ . "/app/Views/msg.php");
     }
 }

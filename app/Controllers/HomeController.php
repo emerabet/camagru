@@ -12,11 +12,4 @@ class HomeController extends Controller
     {
         $this->render('home');
     }
-
-    public function load()
-    {
-        $app = \App\App::getInstance();
-        $args = [];
-        $errors = [];
-    }
 }

@@ -26,7 +26,17 @@ $db = $app->getDb();
 
 $page = $_GET['p'] ?? "";
 
-if (isset($_SESSION['user_logged']) === false)
+if ($page == "" || $page == "home") {
+    $controller = new App\Controllers\HomeController();
+    $controller->home();
+}
+
+else if ($page == "home.gallery") {
+    $controller = new App\Controllers\PhotoController();
+    $controller->all();
+}
+
+else if (isset($_SESSION['user_logged']) === false)
 {
     if ($page == 'login') {
         $controller = new App\Controllers\AuthController();
@@ -56,11 +66,6 @@ if (isset($_SESSION['user_logged']) === false)
     else if ($page == 'user.reset') {
         $controller = new App\Controllers\AuthController();
         $controller->reset();
-    }
-
-    else {
-        $controller = new App\Controllers\HomeController();
-        $controller->home();
     }
 }
 
@@ -94,10 +99,5 @@ else if (isset($_SESSION['user_logged']) === true)
     else if ($page == 'photo.user') {
         $controller = new App\Controllers\PhotoController();
         $controller->load();
-    }
-
-    else {
-        $controller = new App\Controllers\HomeController();
-        $controller->home();
     }
 }

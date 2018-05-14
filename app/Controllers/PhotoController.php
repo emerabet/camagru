@@ -98,6 +98,10 @@ class PhotoController extends Controller
 
     public function load($id = -1)
     {
+        $res = false;
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            http_response_code(404);
+
         if ($id === -1) {
             $id = $_SESSION['user_logged']['id'];
         }
@@ -105,5 +109,31 @@ class PhotoController extends Controller
         $app = \App\App::getInstance();
         $db = $app->getDb();
         $model = new \App\Models\Photo($db);
+        $res = $model->getByUserId($id);
+
+        if ($res !== false) {
+            echo json_encode($res);
+            http_response_code(200);
+        }
+        else
+            http_response_code(406);
+    }
+
+    public function all() {
+        $res = false;
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            http_response_code(404);
+
+        $app = \App\App::getInstance();
+        $db = $app->getDb();
+        $model = new \App\Models\Photo($db);
+        $res = $model->getAll();
+
+        if ($res !== false) {
+            echo json_encode($res);
+            http_response_code(200);
+        }
+        else
+            http_response_code(406);
     }
 }

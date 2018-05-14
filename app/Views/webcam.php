@@ -10,7 +10,6 @@
     <button id="btn-take" class="btn btn-info disabled" style="display:none;">Prendre une photo</button>
     <button id="btn-save" class="btn btn-success disabled" style="display:none;">Sauvegarder</button>
     <button id="btn-cancel" class="btn btn-warning" style="display:none;">Annuler</button>
-
 </div>
 <div class="row">
     <div class="col-sm-12">

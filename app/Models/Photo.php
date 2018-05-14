@@ -25,9 +25,25 @@ class Photo extends Model
     public function getByUserId($id)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `id`, `title`, `name`, `created` FROM `photo` WHERE `id` = :id");
-            $sql->bindParam(':id', $id);
+            $sql = $this->db->getPdo()->prepare("SELECT `id`, `title`, `name`, `created` FROM `photo` WHERE `id_user` = :iduser ORDER BY `created` DESC");
+            $sql->bindParam(':iduser', $id);
             
+            $sql->execute();
+            $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
+            if ($res === true)
+                return $sql->fetchAll();
+            return false;
+        }
+        catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getAll()
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, `id_user` FROM `photo` ORDER BY `created` DESC");
+
             $sql->execute();
             $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
             if ($res === true)

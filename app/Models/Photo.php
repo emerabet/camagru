@@ -54,4 +54,27 @@ class Photo extends Model
             return false;
         }
     }
+
+    public function getPage($page, $nb)
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, `id_user` FROM `photo` ORDER BY `created` DESC LIMIT :p, :nb");
+            $sql->bindParam(':p', $page, \PDO::PARAM_INT);
+            $sql->bindParam(':nb', $nb, \PDO::PARAM_INT);
+
+            $sql->execute();
+            $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
+            if ($res === true)
+                return $sql->fetchAll();
+            return false;
+        }
+        catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getNbPhotos()
+    {
+        return $this->countRows('photo');
+    }
 }

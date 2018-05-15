@@ -74,6 +74,8 @@ class PhotoController extends Controller
                         imagedestroy($itm);
                     }
                 }
+                imagealphablending($base, false);
+                imagesavealpha($base, true);
                 imagepng($base, __ROOT__ . "/upload/$name.png");
                 imagedestroy($base);
                 $app = \App\App::getInstance();
@@ -127,13 +129,26 @@ class PhotoController extends Controller
         $app = \App\App::getInstance();
         $db = $app->getDb();
         $model = new \App\Models\Photo($db);
-        $res = $model->getAll();
 
+        $count = $model->getNbPhotos();
+        $nb = 10;
+        $pages = ceil($count / $nb);
+
+        $current = 1;
+        if (isset($_GET['from']) === true &&$_GET['from'] > 0 && $_GET['from'] <= $pages)
+            $current = $_GET['from'];
+
+        $ask = ($current - 1) * $nb;
+
+        $res = $model->getPage($ask, $nb);
+        $final = [];
         if ($res !== false) {
-            echo json_encode($res);
+            $final = ["total" => $pages, "page" => $current, "rowCount" => $count, "rows" => $res];
+            echo json_encode($final);
             http_response_code(200);
         }
-        else
+        else {
             http_response_code(406);
+        }
     }
 }

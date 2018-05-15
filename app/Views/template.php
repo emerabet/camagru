@@ -1,3 +1,7 @@
+<?php
+  $where = $_GET['p'] ?? "";
+  $col = $where == "photo" ? 8 : 12;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,21 +28,29 @@
 
     <div class="container-fluid">
       <div class="row">
-        <main class="col-sm-12 col-md-8">
+        
+        <main class="col-sm-12 col-md-<?php echo $col; ?>">
           <?php echo $content; ?>
         </main>
-        <div class="col-sm-12 col-md-4">
-          <ul id="side-img" class="list-group"></ul>
-        </div>
+        <?php if ($where == "photo"): ?>
+          <div class="col-sm-12 col-md-4">
+            <ul id="side-img" class="list-group"></ul>
+          </div>
+        <?php endif; ?>
+
+
       </div>
     </div>
     <footer class="footer">emerabet</footer>
     <?php echo $loadjs; ?>
     <script src="js/ajax.js"></script>
     <script src="js/popup.js"></script>
-    <script src="js/gallery.js"></script>
-    <script src="js/camera.js"></script>
-    <script src="js/dragdrop.js"></script>
-    
+    <?php if ($where == "" || $where == "home"): ?>
+      <script src="js/gallery.js"></script>
+    <?php endif; ?>
+    <?php if ($where == "photo"): ?>
+      <script src="js/camera.js"></script>
+      <script src="js/dragdrop.js"></script>
+    <?php endif; ?> 
 </body>
 </html>

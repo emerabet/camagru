@@ -8,6 +8,7 @@ var canvas = document.getElementById('canvas');
 var side = document.getElementById('side-img');
 var btnSave = document.getElementById('btn-save');
 var btnCancel = document.getElementById('btn-cancel');
+var btnWebcam = document.getElementById('btn-webcam');
 
 if (btnTake)
     btnTake.addEventListener('click', function(ev){
@@ -53,8 +54,8 @@ function readURL(input) {
     }
 }
 
-document.getElementById('btn-webcam')
-        .addEventListener('click', function() {
+if (btnWebcam)
+    btnWebcam.addEventListener('click', function() {
     if (started === false) { 
         startStream();
     };

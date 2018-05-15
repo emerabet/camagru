@@ -23,7 +23,6 @@ $app = App\App::getInstance();
 $app->getToken();
 
 $db = $app->getDb();
-
 $page = $_GET['p'] ?? "";
 
 if ($page == "" || $page == "home") {

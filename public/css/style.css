@@ -83,7 +83,7 @@ canvas {
 
 .my-gallery > picture {
     position : relative;
-    width:30%;
+    /*width:30%;*/
     margin:0.4em;
 }
 
@@ -99,9 +99,12 @@ canvas {
     top:0;
 }
 
+.my-img {
+    max-height: 30vh;
+}
+
 @media screen and (max-width: 991.98px) { 
     .my-gallery > picture {
-
         width:45%;
     }
 }

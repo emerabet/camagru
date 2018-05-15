@@ -22,7 +22,6 @@ class Model
             return false;
         }
         catch (\PDOException $e) {
-            var_dump($e);
             return false;
         }
     }

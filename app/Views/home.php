@@ -2,7 +2,7 @@
 </div>
 <div class="d-flex justify-content-center">
     <nav aria-label="...">
-    <ul id="pagin" class="pagination pagination-lg">
-    </ul>
+        <ul id="pagin" class="pagination pagination-lg">
+        </ul>
     </nav>
 </div>

@@ -134,7 +134,6 @@ function savePicture()
         newimage.style.display = '';
         canvas.style.display = 'none';
         storeToCanva(newimage, newimage);
-        console.log("ici");
     }
     if (toSave)
         toSave.title = document.getElementById("title-img").value;

@@ -174,12 +174,11 @@ class AuthController extends Controller
                 $errors[] = "Token incoherent";
             
             $res = $model->find_by_email_username($email, $username);
-            var_dump($res);
+            var_dump("dsfd", $res);
             if (count($errors) === 0 && $res !== false)
             {
                 $this->send_reset_mail($email, $res['verified']);
             }
-            
         }       
     }
 

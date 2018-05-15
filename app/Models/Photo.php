@@ -25,7 +25,13 @@ class Photo extends Model
     public function getByUserId($id)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `id`, `title`, `name`, `created` FROM `photo` WHERE `id_user` = :iduser ORDER BY `created` DESC");
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote
+                                                FROM `photo`
+                                                LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 
+                                                LEFT OUTER JOIN `upvote` ON `photo`.`id` = `upvote`.`id_photo` 
+                                                WHERE `photo`.`id_user` = :iduser 
+                                                GROUP BY `photo`.`id` 
+                                                ORDER BY `created` DESC");
             $sql->bindParam(':iduser', $id);
             
             $sql->execute();
@@ -39,10 +45,38 @@ class Photo extends Model
         }
     }
 
+    public function getByPhotoId($id)
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote
+                                                FROM `photo`
+                                                LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 
+                                                LEFT OUTER JOIN `upvote` ON `photo`.`id` = `upvote`.`id_photo`
+                                                WHERE `photo`.`id` = :idphoto;
+                                                GROUP BY `photo`.`id`;");
+            $sql->bindParam(':idphoto', $id);
+            
+            $sql->execute();
+            $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
+            if ($res === true)
+                return $sql->fetch();
+            return false;
+        }
+        catch (\PDOException $e) {
+            var_dump($e);
+            return false;
+        }
+    }
+
     public function getAll()
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, `id_user` FROM `photo` ORDER BY `created` DESC");
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote
+                                                    FROM `photo`
+                                                    LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 
+                                                    LEFT OUTER JOIN `upvote` ON `photo`.`id` = `upvote`.`id_photo` 
+                                                    GROUP BY `photo`.`id`
+                                                    ORDER BY `created` DESC");
 
             $sql->execute();
             $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
@@ -58,7 +92,12 @@ class Photo extends Model
     public function getPage($page, $nb)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, `id_user` FROM `photo` ORDER BY `created` DESC LIMIT :p, :nb");
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote
+                                                FROM `photo`
+                                                LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 
+                                                LEFT OUTER JOIN `upvote` ON `photo`.`id` = `upvote`.`id_photo` 
+                                                GROUP BY `photo`.`id`
+                                                ORDER BY `created` DESC LIMIT :p, :nb");
             $sql->bindParam(':p', $page, \PDO::PARAM_INT);
             $sql->bindParam(':nb', $nb, \PDO::PARAM_INT);
 

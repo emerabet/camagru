@@ -18,6 +18,8 @@ require_once "../app/Models/Model.php";
 require_once "../app/Models/Auth.php";
 require_once "../app/Models/User.php";
 require_once "../app/Models/Photo.php";
+require_once "../app/Models/Comment.php";
+require_once "../app/Models/Like.php";
 
 $app = App\App::getInstance();
 $app->getToken();
@@ -33,6 +35,16 @@ if ($page == "" || $page == "home") {
 else if ($page == "home.gallery") {
     $controller = new App\Controllers\PhotoController();
     $controller->all();
+}
+
+else if ($page == "send.comment") {
+    $controller = new App\Controllers\PhotoController();
+    $controller->sendcomment();
+}
+
+else if ($page == "photo.show") {
+    $controller = new App\Controllers\PhotoController();
+    $controller->show();
 }
 
 else if (isset($_SESSION['user_logged']) === false)

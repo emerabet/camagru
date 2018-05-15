@@ -66,10 +66,10 @@ function createNodeGallery(obj)
         cont.classList.add("info-gallery");
         let com = document.createElement('SPAN');
         com.classList.add("com-photo");
-        com.innerText = 10;
+        com.innerText = obj.nb_comment;
         let like = document.createElement('SPAN');
         like.classList.add("like-photo");
-        like.innerText = 2;
+        like.innerText = obj.nb_upvote;
 
         cont.appendChild(com);
         cont.appendChild(like);

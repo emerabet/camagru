@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Models;
+
+class Like extends Model 
+{
+    protected $db;
+
+    public function __construct(\App\Database $db) {
+        $this->db = $db;
+    }
+
+    public function add($iduser, $idphoto) 
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("INSERT INTO `upvote` (`id_user`, `date_com`, `id_user`, `id_photo`) VALUES (:content, now(), :iduser, :idphoto)");
+            $sql->bindParam(':content', $content);
+            $sql->bindParam(':iduser', $iduser);
+            $sql->bindParam(':idphoto', $idphoto);
+            
+            $sql->execute();
+            return true;
+        }
+        catch(\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function del($iduser, $idphoto) 
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("DELETE FROM `upvote` WHERE id_user = :iduser AND id_photo = :idphoto;");
+            $sql->bindParam(':iduser', $iduser);
+            $sql->bindParam(':idphoto', $idphoto);
+            
+            $sql->execute();
+            return true;
+        }
+        catch(\PDOException $e) {
+            return false;
+        }
+    }
+}
+?>

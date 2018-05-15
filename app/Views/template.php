@@ -48,6 +48,9 @@
     <?php if ($where == "" || $where == "home"): ?>
       <script src="js/gallery.js"></script>
     <?php endif; ?>
+    <?php if ($where == "photo.show"): ?>
+      <script src="js/comment.js"></script>
+    <?php endif; ?>
     <?php if ($where == "photo"): ?>
       <script src="js/camera.js"></script>
       <script src="js/dragdrop.js"></script>

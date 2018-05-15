@@ -9,6 +9,25 @@ class PhotoController extends Controller
         $this->render("webcam");
     }
 
+    public function show()
+    {
+        $app = \App\App::getInstance();
+        $db = $app->getDb();
+        $model = new \App\Models\Photo($db);
+        $args = [];
+
+        $id = $_GET['id'] ?? "";
+        if (is_numeric($id)) {
+            $res = $model->getByPhotoId($id);
+            $com = new \App\Models\Comment($db);
+            $msg = $com->getByIdPhoto($id);
+            $args['res'] = $res;
+            $args['comments'] = $msg;
+            $args['token'] = $app->refreshToken();
+        }
+        $this->render("photo", $args);
+    }
+
     private function getPathSticker($id)
     {
         if ($id == "img-hado")
@@ -97,6 +116,52 @@ class PhotoController extends Controller
         }
     }
 
+    private function check_comment($obj, $token) 
+    {
+        $errors = [];
+        
+        if ($obj->iduser != $_SESSION['user_logged']['id'])
+            $errors[] = "Utiliateur incoherent";
+        if (strlen($obj->comment) <= 0)
+            $errors[] = "Commentaire trop court";
+        if (hash_equals($token, $obj->token) === false)
+            $errors[] = "Token incoherent";
+
+        return $errors;
+    }
+
+    public function sendcomment()
+    {
+        $res = false;
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            http_response_code(404);
+
+            if (isset($_POST['data'])) 
+            {
+                $app = \App\App::getInstance();
+
+                $o = json_decode($_POST['data']);
+                $errors = $this->check_comment($o, $app->getToken());
+                if (count($errors) > 0)
+                    http_response_code(404);
+
+                $db = $app->getDb();
+                $model = new \App\Models\Comment($db);
+                $res = $model->add($o->comment, $o->iduser, $o->idphoto);
+                if ($res !== false) {
+                    echo "Envoyé";
+                    http_response_code(200);
+                }
+                else {
+                    echo "Le commentaire n'a pas pu etre posté";
+                    http_response_code(406);
+                }
+            }
+            else {
+                echo "Le commentaire n'a pas pu etre posté";
+                http_response_code(406);
+            }
+    }
 
     public function load($id = -1)
     {

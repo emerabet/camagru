@@ -94,24 +94,45 @@ canvas {
 }
 
 .name-photo {
-    background-color: #20202033;
-    position : absolute;
-    top:0;
+    background-color: #f9f5f594;
+    position: absolute;
+    top: 0;
+    padding: 10px;
 }
 
 .my-img {
     max-height: 30vh;
 }
 
+.my-comment {
+    width: 50%;
+    position:relative;
+}
+
+.btn-cmt {
+    position: absolute;
+    right: 0px;
+}
+
+.my-list {
+    margin-top: 45px;
+}
+
 @media screen and (max-width: 991.98px) { 
     .my-gallery > picture {
         width:45%;
+    }
+    .my-comment {
+        width: 100%;
     }
 }
 
 @media screen and (max-width: 640px){
     .my-gallery > picture {
         width:100%;
+    }
+    .my-comment {
+        width: 100%;
     }
 }
 

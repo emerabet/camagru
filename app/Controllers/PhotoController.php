@@ -136,31 +136,31 @@ class PhotoController extends Controller
         if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
             http_response_code(404);
 
-            if (isset($_POST['data'])) 
-            {
-                $app = \App\App::getInstance();
+        if (isset($_POST['data'])) 
+        {
+            $app = \App\App::getInstance();
 
-                $o = json_decode($_POST['data']);
-                $errors = $this->check_comment($o, $app->getToken());
-                if (count($errors) > 0)
-                    http_response_code(404);
+            $o = json_decode($_POST['data']);
+            $errors = $this->check_comment($o, $app->getToken());
+            if (count($errors) > 0)
+                http_response_code(404);
 
-                $db = $app->getDb();
-                $model = new \App\Models\Comment($db);
-                $res = $model->add($o->comment, $o->iduser, $o->idphoto);
-                if ($res !== false) {
-                    echo "Envoyé";
-                    http_response_code(200);
-                }
-                else {
-                    echo "Le commentaire n'a pas pu etre posté";
-                    http_response_code(406);
-                }
+            $db = $app->getDb();
+            $model = new \App\Models\Comment($db);
+            $res = $model->add($o->comment, $o->iduser, $o->idphoto);
+            if ($res !== false) {
+                echo "Envoyé";
+                http_response_code(200);
             }
             else {
                 echo "Le commentaire n'a pas pu etre posté";
                 http_response_code(406);
             }
+        }
+        else {
+            echo "Le commentaire n'a pas pu etre posté";
+            http_response_code(406);
+        }
     }
 
     public function load($id = -1)
@@ -213,6 +213,46 @@ class PhotoController extends Controller
             http_response_code(200);
         }
         else {
+            http_response_code(406);
+        }
+    }
+
+    public function upvote()
+    {
+        $res = false;
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            http_response_code(404);
+
+        if (isset($_POST['data'])) 
+        {
+            $app = \App\App::getInstance();
+            $db = $app->getDb();
+            $model = new \App\Models\Like($db);
+    
+            $count = $model->isLiked();
+
+
+
+
+            $o = json_decode($_POST['data']);
+            $errors = $this->check_comment($o, $app->getToken());
+            if (count($errors) > 0)
+                http_response_code(404);
+
+            $db = $app->getDb();
+            $model = new \App\Models\Comment($db);
+            $res = $model->add($o->comment, $o->iduser, $o->idphoto);
+            if ($res !== false) {
+                echo "Envoyé";
+                http_response_code(200);
+            }
+            else {
+                echo "Le commentaire n'a pas pu etre posté";
+                http_response_code(406);
+            }
+        }
+        else {
+            echo "Le commentaire n'a pas pu etre posté";
             http_response_code(406);
         }
     }

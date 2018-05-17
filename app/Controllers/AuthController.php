@@ -46,6 +46,11 @@ class AuthController extends Controller
                     {
                         unset($res['password']);
                         $_SESSION['user_logged'] = $res;
+
+                        $cookie_name = "user_logged";
+                        $last = $res;
+                        unset($last['verified']);
+                        setcookie($cookie_name, json_encode($last), time() + 3600, "/");
                         $this->redirect('home');
                     }
                 }
@@ -146,8 +151,8 @@ class AuthController extends Controller
 
     public function logout()
     {
-        var_dump("pppp");
         unset($_SESSION['user_logged']);
+        setcookie("user_logged", "", time() - 8600, "/");
         $this->redirect('home');
     }
 

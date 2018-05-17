@@ -83,6 +83,11 @@ else if (isset($_SESSION['user_logged']) === false)
         $controller = new App\Controllers\AuthController();
         $controller->reset();
     }
+
+    else {
+        echo "Not Found";
+        http_response_code(404);
+    }
 }
 
 else if (isset($_SESSION['user_logged']) === true) 
@@ -116,4 +121,13 @@ else if (isset($_SESSION['user_logged']) === true)
         $controller = new App\Controllers\PhotoController();
         $controller->load();
     }
+
+    else {
+        echo "Not Found";
+        http_response_code(404);
+    }
+}
+else {
+    echo "Not Found";
+    http_response_code(404);
 }

@@ -1,4 +1,9 @@
 var gallery = null;
+var userconnected = null;
+
+console.log(getCookie("user_logged"));
+
+
 
 gallery = document.getElementById('my-gallery');
 
@@ -45,6 +50,7 @@ function createPagitation(total, current)
 function createNodeGallery(obj)
 {
     if (gallery) {
+        console.log(obj);
         let pic = document.createElement('PICTURE');
         pic.classList.add("picture");
         pic.classList.add("img-thumbnail");
@@ -72,6 +78,22 @@ function createNodeGallery(obj)
         let com = document.createElement('SPAN');
         com.classList.add("com-photo");
         com.innerText = obj.nb_comment + " Commentaire(s)";
+
+        let sup = document.createElement('SPAN');
+        sup.classList.add("sup-photo");
+        sup.innerText = "Supprimer";
+        sup.addEventListener('click', function () {
+            let data = JSON.stringify({ id: obj.id });
+            var xmlhttp = sendPostAjax("index.php?p=del.photo");
+            xmlhttp.onload = function () {
+                if (xmlhttp.status === 200) {
+                    console.log("removed");
+                }
+                alert(xmlhttp.responseText);
+            };
+            xmlhttp.send("data=" + data);
+        });
+
         let like = document.createElement('SPAN');
         like.setAttribute('id', obj.id);
         like.classList.add("like-photo");
@@ -94,6 +116,10 @@ function createNodeGallery(obj)
         });
 
         cont.appendChild(com);
+
+
+
+        cont.appendChild(sup);
         cont.appendChild(like);
 
         pic.appendChild(a);

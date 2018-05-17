@@ -31,8 +31,7 @@ class Like extends Model
     public function add($iduser, $idphoto) 
     {
         try {
-            $sql = $this->db->getPdo()->prepare("INSERT INTO `upvote` (`id_user`, `date_com`, `id_user`, `id_photo`) VALUES (:content, now(), :iduser, :idphoto)");
-            $sql->bindParam(':content', $content);
+            $sql = $this->db->getPdo()->prepare("INSERT INTO `upvote` (`id_user`, `id_photo`) VALUES (:iduser, :idphoto)");
             $sql->bindParam(':iduser', $iduser);
             $sql->bindParam(':idphoto', $idphoto);
             
@@ -40,6 +39,8 @@ class Like extends Model
             return true;
         }
         catch(\PDOException $e) {
+
+            var_dump($e);
             return false;
         }
     }

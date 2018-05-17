@@ -118,6 +118,10 @@ canvas {
     margin-top: 45px;
 }
 
+.like-photo:after {
+    content: " Like(s)";
+}
+
 @media screen and (max-width: 991.98px) { 
     .my-gallery > picture {
         width:45%;

@@ -44,7 +44,6 @@ function createPagitation(total, current)
 
 function createNodeGallery(obj)
 {
-    console.log(obj);
     if (gallery) {
         let pic = document.createElement('PICTURE');
         pic.classList.add("picture");
@@ -55,10 +54,16 @@ function createNodeGallery(obj)
         title.classList.add("name-photo");
         title.innerText = obj.title;
 
+        let a = document.createElement("A");
+        a.setAttribute('href', "index.php?p=photo.show&id=" + obj.id);
+
         let img = document.createElement("IMG");
         img.classList.add("img-fluid");
         img.classList.add("my-img"); 
         img.setAttribute('src', "../upload/" + obj.name);
+
+        a.appendChild(title);
+        a.appendChild(img);
 
         let cont = document.createElement('DIV');
         cont.classList.add("d-flex");
@@ -66,16 +71,32 @@ function createNodeGallery(obj)
         cont.classList.add("info-gallery");
         let com = document.createElement('SPAN');
         com.classList.add("com-photo");
-        com.innerText = obj.nb_comment;
+        com.innerText = obj.nb_comment + " Commentaire(s)";
         let like = document.createElement('SPAN');
+        like.setAttribute('id', obj.id);
         like.classList.add("like-photo");
         like.innerText = obj.nb_upvote;
+        like.addEventListener('click', function () {
+            let el = this;
+            let id = this.id;
+            let data = JSON.stringify({ id: id });
+            var xmlhttp = sendPostAjax("index.php?p=upvote");
+            xmlhttp.onload = function () {
+                if (xmlhttp.status === 200) {
+                    el.innerText = parseInt(el.innerText) + 1;
+                }
+                else if (xmlhttp.status === 202) {
+                    el.innerText = parseInt(el.innerText) - 1;
+                }
+                alert(xmlhttp.responseText);
+            };
+            xmlhttp.send("data=" + data);
+        });
 
         cont.appendChild(com);
         cont.appendChild(like);
 
-        pic.appendChild(title);
-        pic.appendChild(img);
+        pic.appendChild(a);
         pic.appendChild(cont);
 
         gallery.appendChild(pic);

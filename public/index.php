@@ -42,6 +42,11 @@ else if ($page == "send.comment") {
     $controller->sendcomment();
 }
 
+else if ($page == "upvote") {
+    $controller = new App\Controllers\PhotoController();
+    $controller->upvote();
+}
+
 else if ($page == "photo.show") {
     $controller = new App\Controllers\PhotoController();
     $controller->show();

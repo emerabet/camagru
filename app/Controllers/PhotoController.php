@@ -228,31 +228,39 @@ class PhotoController extends Controller
             $app = \App\App::getInstance();
             $db = $app->getDb();
             $model = new \App\Models\Like($db);
-    
-            $count = $model->isLiked();
-
-
-
+            $res = false;
 
             $o = json_decode($_POST['data']);
-            $errors = $this->check_comment($o, $app->getToken());
-            if (count($errors) > 0)
-                http_response_code(404);
+    
+            $iduser = $_SESSION['user_logged']['id'];
+            $count = $model->isLiked($iduser, $o->id);
+            $action = "Liked";
 
-            $db = $app->getDb();
-            $model = new \App\Models\Comment($db);
-            $res = $model->add($o->comment, $o->iduser, $o->idphoto);
-            if ($res !== false) {
-                echo "Envoyé";
-                http_response_code(200);
+            var_dump($o, $count);
+
+            if ($count == 0) {
+                $res = $model->add($iduser, $o->id);
             }
             else {
-                echo "Le commentaire n'a pas pu etre posté";
+                $res = $model->del($iduser, $o->id);
+                $action = "Like enlevé";
+            }
+            
+            if ($res !== false) {
+                echo $action;
+                if ($action == "Liked")
+                    http_response_code(200);
+                else {
+                    http_response_code(202);
+                }
+            }
+            else {
+                echo "Aucune action effectueée";
                 http_response_code(406);
             }
         }
         else {
-            echo "Le commentaire n'a pas pu etre posté";
+            echo "Aucune action effectueée";
             http_response_code(406);
         }
     }

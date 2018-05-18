@@ -236,8 +236,6 @@ class PhotoController extends Controller
             $count = $model->isLiked($iduser, $o->id);
             $action = "Liked";
 
-            var_dump($o, $count);
-
             if ($count == 0) {
                 $res = $model->add($iduser, $o->id);
             }
@@ -261,6 +259,51 @@ class PhotoController extends Controller
         }
         else {
             echo "Aucune action effectueée";
+            http_response_code(406);
+        }
+    }
+
+    public function del()
+    {
+        $res = false;
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            http_response_code(404);
+
+        if (isset($_POST['data'])) 
+        {
+            $app = \App\App::getInstance();
+            $db = $app->getDb();
+            $model = new \App\Models\Photo($db);
+            $res = false;
+    
+            $o = json_decode($_POST['data']);
+        
+            $iduser = $_SESSION['user_logged']['id'];
+            $idusercookie = $_COOKIE['user_logged'] ?? "";
+
+            if ($idusercookie != "")
+                $idusercookie = json_decode($idusercookie);
+            var_dump($idusercookie, $iduser);
+
+            if ($iduser == $idusercookie->id)
+            {
+                $res = $model->delPhoto($iduser, $o->id);              
+                if ($res !== false) {
+                    echo "Supprimée";
+                    http_response_code(200);
+                }
+                else {
+                    echo "Aucune action effectuée";
+                    http_response_code(406);
+                }
+            }
+            else {
+                echo "Aucune action effectuée";
+                http_response_code(403);
+            }
+        }
+        else {
+            echo "Aucune action effectuée";
             http_response_code(406);
         }
     }

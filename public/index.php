@@ -122,6 +122,11 @@ else if (isset($_SESSION['user_logged']) === true)
         $controller->load();
     }
 
+    else if ($page == 'photo.del') {
+        $controller = new App\Controllers\PhotoController();
+        $controller->del();
+    }
+
     else {
         echo "Not Found";
         http_response_code(404);

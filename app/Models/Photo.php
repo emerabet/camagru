@@ -63,7 +63,6 @@ class Photo extends Model
             return false;
         }
         catch (\PDOException $e) {
-            var_dump($e);
             return false;
         }
     }
@@ -108,6 +107,29 @@ class Photo extends Model
             return false;
         }
         catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function delPhoto($iduser, $idphoto)
+    {
+        try {
+            $sql = $this->db->getPdo()->prepare("DELETE FROM `photo` WHERE id = :idphoto AND id_user = :iduser");
+            $sql->bindParam(':idphoto', $idphoto, \PDO::PARAM_INT);
+            $sql->bindParam(':iduser', $iduser, \PDO::PARAM_INT);
+
+            $sql->execute();
+
+            $heu = $sql->rowCount();
+            var_dump($heu);
+            if ($heu > 0){
+               echo "ici";
+                return true;
+            }
+            return false;
+        }
+        catch (\PDOException $e) {
+            var_dump($e);
             return false;
         }
     }

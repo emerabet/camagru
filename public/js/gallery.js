@@ -84,7 +84,7 @@ function createNodeGallery(obj)
         sup.innerText = "Supprimer";
         sup.addEventListener('click', function () {
             let data = JSON.stringify({ id: obj.id });
-            var xmlhttp = sendPostAjax("index.php?p=del.photo");
+            var xmlhttp = sendPostAjax("index.php?p=photo.del");
             xmlhttp.onload = function () {
                 if (xmlhttp.status === 200) {
                     console.log("removed");

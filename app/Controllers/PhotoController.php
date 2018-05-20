@@ -196,7 +196,7 @@ class PhotoController extends Controller
         $model = new \App\Models\Photo($db);
 
         $count = $model->getNbPhotos();
-        $nb = 10;
+        $nb = 9;
         $pages = ceil($count / $nb);
 
         $current = 1;
@@ -285,7 +285,7 @@ class PhotoController extends Controller
                 $idusercookie = json_decode($idusercookie);
             var_dump($idusercookie, $iduser);
 
-            if ($iduser == $idusercookie->id)
+            if ($idusercookie != "" && $iduser == $idusercookie->id)
             {
                 $res = $model->delPhoto($iduser, $o->id);              
                 if ($res !== false) {

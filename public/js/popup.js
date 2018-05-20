@@ -45,4 +45,3 @@ var pwd2 = document.getElementById("inputConfirmPassword");
 
 if (chkAccount)
     chkAccount.addEventListener("click", updateField);
-

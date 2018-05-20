@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="nav flex-column flex-sm-row">
+    <nav class="nav flex-column flex-sm-row my-nav">
         <a class="text-sm-center nav-link active" href="index.php">Home</a>
         <?php if ($my_logged === false): ?>
           <a class="text-sm-center nav-link" href="index.php?p=login">Login</a>
@@ -26,9 +26,8 @@
         <?php endif; ?>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid my-container">
       <div class="row">
-        
         <main class="col-sm-12 col-md-<?php echo $col; ?>">
           <?php echo $content; ?>
         </main>
@@ -37,11 +36,10 @@
             <ul id="side-img" class="list-group"></ul>
           </div>
         <?php endif; ?>
-
-
       </div>
     </div>
     <footer class="footer">emerabet</footer>
+    
     <?php echo $loadjs; ?>
     <script src="js/ajax.js"></script>
     <script src="js/popup.js"></script>

@@ -1,11 +1,7 @@
 var gallery = null;
 var userconnected = null;
 
-console.log(getCookie("user_logged"));
-
-
-
-gallery = document.getElementById('my-gallery');
+gallery = document.getElementById('my-grid');
 
 loadPicturesGallery(1);
 function loadPicturesGallery(page) 
@@ -15,6 +11,7 @@ function loadPicturesGallery(page)
         if (x2.status === 200) {
             if (gallery)
                 gallery.innerHTML = '';
+
             let json = JSON.parse(x2.responseText);
             createPagitation(json.total, json.page);
             json.rows.forEach(element => {
@@ -125,6 +122,7 @@ function createNodeGallery(obj)
         pic.appendChild(a);
         pic.appendChild(cont);
 
-        gallery.appendChild(pic);
+      //  gallery.appendChild(pic);
+        document.getElementById('my-grid').appendChild(pic);
     }
 }

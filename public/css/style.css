@@ -53,7 +53,7 @@ body {
 }
 
 .my-area {
-    background-color: #d4d4d4;
+    background-color: #465362;
 }
 
 .my-area > img {
@@ -91,6 +91,7 @@ canvas {
 
 .my-grid > picture {
     position : relative;
+    background-color: #0e3f7a33;
     /*width:30%;
     margin:0.4em;
     border: 1px solid #465362;*/
@@ -103,10 +104,12 @@ canvas {
 }
 
 .name-photo {
-    background-color: #0119364d;
+    background-color: #0e3f7a99;
     position: absolute;
     top: 0;
     padding: 10px;
+    color:#f4fffd;
+    font-weight: bold;
 }
 
 #my-photo > h1 {
@@ -174,6 +177,12 @@ canvas {
     padding: 2rem 1rem;
 }
 
+@media screen and (max-width: 1130px) {
+    .my-area {
+        flex-direction: column !important;
+    }
+}
+
 @media screen and (max-width: 991.98px) { 
     .my-comment {
         width: 100%;
@@ -182,6 +191,10 @@ canvas {
         grid-template-columns: 1fr 1fr;
         margin: auto;
         width: 85%;
+    }
+
+    .my-area {
+        flex-direction: column !important;
     }
 
     .my-grid > picture {
@@ -196,6 +209,10 @@ canvas {
         width: 95%;
     }
 
+    .my-area {
+        flex-direction: column !important;
+    }
+
     .my-grid > picture {
         width:100%;
     }
@@ -208,4 +225,3 @@ canvas {
         padding: 0.8rem 1rem;
     }
 }
-

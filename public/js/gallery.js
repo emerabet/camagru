@@ -84,7 +84,7 @@ function createNodeGallery(obj)
             var xmlhttp = sendPostAjax("index.php?p=photo.del");
             xmlhttp.onload = function () {
                 if (xmlhttp.status === 200) {
-                    console.log("removed");
+                    pic.parentNode.removeChild(pic);
                 }
                 alert(xmlhttp.responseText);
             };
@@ -114,15 +114,12 @@ function createNodeGallery(obj)
 
         cont.appendChild(com);
 
-
-
         cont.appendChild(sup);
         cont.appendChild(like);
 
         pic.appendChild(a);
         pic.appendChild(cont);
-
-      //  gallery.appendChild(pic);
+        
         document.getElementById('my-grid').appendChild(pic);
     }
 }

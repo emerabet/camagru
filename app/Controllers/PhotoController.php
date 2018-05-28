@@ -287,8 +287,12 @@ class PhotoController extends Controller
 
             if ($idusercookie != "" && $iduser == $idusercookie->id)
             {
+                $tmp = $model->getByPhotoId($o->id);
                 $res = $model->delPhoto($iduser, $o->id);              
                 if ($res !== false) {
+                    $name = $tmp['name'];
+                    $path = __ROOT__ . "/upload/$name";
+                    unlink($path);
                     echo "Supprimée";
                     http_response_code(200);
                 }

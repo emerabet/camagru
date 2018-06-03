@@ -11,16 +11,17 @@ class User extends Model
         parent::__construct($database);
     }
 
-    public function add($username, $mail, $password, $verif)
+    public function add($username, $mail, $password, $verif, $notif)
     {
         try {
             $sql = $this->db->getPdo()->prepare(
-                "INSERT INTO `user` (`name`, `email`, `password`, `verified`, `role`) 
-                            VALUES (:name, :email, :password, :verified, -1)");
+                "INSERT INTO `user` (`name`, `email`, `password`, `verified`, `role`, `notif`) 
+                            VALUES (:name, :email, :password, :verified, -1, :notif)");
             $sql->bindParam(':name', $username);
             $sql->bindParam(':email', $mail);
             $sql->bindParam(':password', $password);
             $sql->bindParam(':verified', $verif);
+            $sql->bindParam(':notif', $notif);
             
             $sql->execute();
             return true;
@@ -33,7 +34,7 @@ class User extends Model
     public function find_by_verification_key($key)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `verified`, `role` FROM `user` WHERE `verified` = :verified");
+            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `verified`, `role`, `notif`  FROM `user` WHERE `verified` = :verified");
             $sql->bindParam(':verified', $key);
             $sql->execute();
             $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
@@ -49,7 +50,7 @@ class User extends Model
     public function find_by_email_username($email, $username)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `verified`, `role` FROM `user` WHERE `name` = :name AND `email` = :email;");
+            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `verified`, `role`, `notif` FROM `user` WHERE `name` = :name AND `email` = :email;");
             $sql->bindParam(':name', $username);
             $sql->bindParam(':email', $email);
             $sql->execute();

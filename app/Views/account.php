@@ -1,5 +1,4 @@
 
-
 <form method="POST" action="index.php?p=user.update" class="col-sm-12 col-md-7">
     <input type="hidden" name="token" value="<?php echo htmlspecialchars($my_token); ?>" />
       
@@ -8,7 +7,12 @@
 
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" id="inputEmail" name="email" class="form-control" value="<?php echo htmlspecialchars($my_user['email']); ?>" placeholder="Email" required>
-      
+    
+    <div class="form-check">
+    <input type="checkbox" name="notif" class="form-check-input" id="chkNotif" <?php if ($my_user['notif'] == 1): ?>checked<?php endif; ?>>
+        <label class="form-check-label" for="exampleCheck1">Je veux être notifié des commentaires</label>
+    </div>
+    <br />
     <div class="form-check">
         <input type="checkbox" name="chk" class="form-check-input" id="chkAccount">
         <label class="form-check-label" for="exampleCheck1">Je veux modifier mon mot de passe</label>

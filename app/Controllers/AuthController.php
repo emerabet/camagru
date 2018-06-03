@@ -70,12 +70,16 @@ class AuthController extends Controller
             $db = $app->getDb();
             $model = new \App\Models\User($db);
 
+            $notif = 0;
             $value = $_POST["submit"] ?? "";
             $token = $_POST['token'] ?? "";
             $username = $_POST["pseudo"] ?? "";
             $email = $_POST["email"] ?? "";
             $pwd1 = $_POST["password"] ?? "";
             $pwd2 = $_POST["confirmpwd"] ?? "";
+
+            if (isset($_POST['notif']))
+                $notif = 1;
 
             if ($value == "" || $username == "" || $email == "" || $pwd1 == "" || $pwd2 == "")
                 $errors[] = "Tous les champs sont obligatoires";
@@ -97,7 +101,7 @@ class AuthController extends Controller
             {
                 $pass = password_hash($pwd1, PASSWORD_DEFAULT);
                 $code = bin2hex(random_bytes(16));
-                if ($model->add($username, $email, $pass, $code)) {
+                if ($model->add($username, $email, $pass, $code, $notif)) {
                     $this->send_verification_mail($email, $code);
                     $args["success"] = "Un mail de confirmation vient de vous etre envoyé";
                 }

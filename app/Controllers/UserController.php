@@ -24,22 +24,26 @@ class UserController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             $chk = false;
+            $notif = 0;
+
             $user = $_SESSION['user_logged'];
 
             $pwd1 = $_POST['password'] ?? "";
             $pwd2 = $_POST['confirmpwd'] ?? "";
             $email = $_POST['email'] ?? "";
             $username = $_POST['pseudo'] ?? "";
+            if (isset($_POST['notif']))
+                $notif = 1;
             if (isset($_POST['chk']))
                 $chk = true;
-
+            
             if ($chk === true && ($pwd1 == "" || $pwd2 == ""))
                 $errors[] = "Mot de passe incorrect";
-            if ($this->check_password_strength($pwd1) === false)
+            if ($chk ===true && $this->check_password_strength($pwd1) === false)
                 $errors[] = "Pattern du mot de passe incorrect";
             if ($email == "" || $username == "")
                 $errors[] = "Email et Pseudo ne peuvent pas etre vides.";
-            
+
             if (count($errors) === 0)
             {
                 $db = $app->getDb();
@@ -48,6 +52,7 @@ class UserController extends Controller
                 $id = $user['id'];
                 $user['email'] = $email;
                 $user['name'] = $username;
+                $user['notif'] = $notif;
                 if ($chk === true)
                 {
                     $pass = password_hash($pwd1, PASSWORD_DEFAULT);
@@ -59,10 +64,12 @@ class UserController extends Controller
                     $args["verif"] = "OK";
                     unset($user['password']);
                     $_SESSION['user_logged'] = $user;
-                    $this->index($args);
                 }
             }
+            else
+                $args = ["errors" => $errors];
         }
+        $this->redirect('user.account');
     }
 
     public function verify()

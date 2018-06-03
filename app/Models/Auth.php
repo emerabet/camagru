@@ -12,17 +12,15 @@ class Auth extends Model
     public function login($username)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `password`, `verified`, `role` FROM `user` WHERE `role` > -1 AND `name` = :name;");
+            $sql = $this->db->getPdo()->prepare("SELECT `id`, `name`, `email`, `password`, `verified`, `role`, `notif` FROM `user` WHERE `role` > -1 AND `name` = :name;");
             $sql->bindParam(':name', $username);
             $sql->execute();
             $res = $sql->setFetchMode(\PDO::FETCH_ASSOC);
-            var_dump($res);
             if ($res === true)
                 return $sql->fetch();
             return false;
         }
         catch (\PDOException $e) {
-            var_dump($e);
             return false;
         }
         return false;

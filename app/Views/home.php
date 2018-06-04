@@ -1,6 +1,5 @@
 <div id="my-gallery" class="my-gallery d-flex justify-content-center bd-highlight flex-wrap">
 </div>
-<h1>Grid</h1>
 <div id="my-grid" class="my-grid">
 
 </div>

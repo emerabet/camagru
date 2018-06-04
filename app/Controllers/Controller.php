@@ -45,4 +45,22 @@ class Controller
     protected function display_msg($msgs) {
         require (__ROOT__ . "/app/Views/msg.php");
     }
+
+    protected function notify_comment_mail($to, $title)
+    {
+        $subject = "Nouveau comentaire sur votre montage";
+        $message = "
+        <html>
+        <head>
+        <title>Nouveau comentaire sur votre montage</title>
+        </head>
+        <body>
+        <p>Un nouveau commenaire vient d'etre publié sur votre montage : $title</p>
+        </body>
+        </html>
+        ";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        mail($to, $subject, $message, $headers);
+    }
 }

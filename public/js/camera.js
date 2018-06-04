@@ -13,8 +13,10 @@ var btnWebcam = document.getElementById('btn-webcam');
 if (btnTake)
     btnTake.addEventListener('click', function(ev){
         if (items.length > 0) {
-            storeToCanva(live, embed_video);
-            removeEvent();
+            if (embed_video.style.display != "none") {
+                storeToCanva(live, embed_video);
+                removeEvent();
+            }
         }
         else
             alert("Ajoutez une image avant");
@@ -59,6 +61,11 @@ if (btnWebcam)
     if (started === false) { 
         startStream();
     };
+
+    if (canvas.style.display != "none") {
+        embed_video.style.display = '';
+        canvas.style.display = "none";
+    }
 });
 
 function startStream() {
@@ -130,31 +137,33 @@ function stopStream() {
 
 function savePicture()
 {
-    if (started === false) {
-        newimage.style.display = '';
-        canvas.style.display = 'none';
-        storeToCanva(newimage, newimage);
-    }
-    if (toSave)
-        toSave.title = document.getElementById("title-img").value;
-
-    if (toSave !== null && toSave.itms.length > 0 && toSave.title != '' && toSave.img != 'data:,' && toSave.img != '') {
-        var obj = JSON.stringify(toSave);
-        var xmlhttp = sendPostAjax("index.php?p=photo.save");
-        xmlhttp.onload = function () {          
+    if (canvas.style.display == '') {
+        if (started === false) {
+            newimage.style.display = '';
             canvas.style.display = 'none';
-            toSave.img = '';
-            if (started === true) {                
-                embed_video.style.display = '';          
-            }
-            else {
-                newimage.style.display = '';
-            }
-            setEvent();
-            loadPicturesUser();
-            alert(xmlhttp.responseText);
-        };
-        xmlhttp.send("data=" + obj);
+            storeToCanva(newimage, newimage);
+        }
+        if (toSave)
+            toSave.title = document.getElementById("title-img").value;
+
+        if (toSave !== null && toSave.itms.length > 0 && toSave.title != '' && toSave.img != 'data:,' && toSave.img != '') {
+            var obj = JSON.stringify(toSave);
+            var xmlhttp = sendPostAjax("index.php?p=photo.save");
+            xmlhttp.onload = function () {          
+                canvas.style.display = 'none';
+                toSave.img = '';
+                if (started === true) {                
+                    embed_video.style.display = '';          
+                }
+                else {
+                    newimage.style.display = '';
+                }
+                setEvent();
+                loadPicturesUser();
+                alert(xmlhttp.responseText);
+            };
+            xmlhttp.send("data=" + obj);
+        }
     }
 }
 

@@ -4,6 +4,17 @@ html{
 
 body {
     background-color: #f7f5fb;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+    flex: 0 0 50px;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
 }
 
 .my_modal {
@@ -175,6 +186,10 @@ canvas {
 
 .nav-link {
     padding: 2rem 1rem;
+}
+
+main {
+    margin-bottom:10px;
 }
 
 @media screen and (max-width: 1130px) {

@@ -150,6 +150,10 @@ class PhotoController extends Controller
             $res = $model->add($o->comment, $o->iduser, $o->idphoto);
             if ($res !== false) {
                 echo "Envoyé";
+                $model = new \App\Models\Photo($db);
+                $author = $model->getByPhotoId($o->idphoto);
+                if ($author !== false)
+                    $this->notify_comment_mail($author['email'], $author['title']);
                 http_response_code(200);
             }
             else {

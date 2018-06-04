@@ -6,9 +6,6 @@
 
       <label for="inputEmail" class="sr-only">Email</label>
       <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required>
-
-      <label for="chkNotif" class="sr-only">Notif mail</label>
-      <input type="checkbox" id="chkNotif" name="notif" class="form-control">
       
       <label for="inputPassword" class="sr-only">Mot de passe</label>
       <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="6 caracteres minimum comprenant au moins 1 chiffre, une majuscule et une minuscule">

@@ -152,7 +152,7 @@ class PhotoController extends Controller
                 echo "Envoyé";
                 $model = new \App\Models\Photo($db);
                 $author = $model->getByPhotoId($o->idphoto);
-                if ($author !== false)
+                if ($author !== false && $author['notif'] == "1")
                     $this->notify_comment_mail($author['email'], $author['title']);
                 http_response_code(200);
             }
@@ -287,7 +287,6 @@ class PhotoController extends Controller
 
             if ($idusercookie != "")
                 $idusercookie = json_decode($idusercookie);
-            var_dump($idusercookie, $iduser);
 
             if ($idusercookie != "" && $iduser == $idusercookie->id)
             {

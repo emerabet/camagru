@@ -25,7 +25,7 @@ class Photo extends Model
     public function getByUserId($id)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `photo`.`name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote, `user`.`name` as username, `user`.`email` 
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `photo`.`name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote, `user`.`name` as username, `user`.`email`, `user`.`notif` 
                                                 FROM `photo`
                                                 INNER JOIN`user` ON `photo`.`id_user` = `user`.`id`
                                                 LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 
@@ -49,7 +49,7 @@ class Photo extends Model
     public function getByPhotoId($id)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `photo`.`name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote, `user`.`name` as username, `user`.`email`
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `photo`.`name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote, `user`.`name` as username, `user`.`email`, `user`.`notif` 
                                                 FROM `photo`
                                                 INNER JOIN`user` ON `photo`.`id_user` = `user`.`id`
                                                 LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 

@@ -53,6 +53,7 @@ function readURL(input) {
         };
 
         reader.readAsDataURL(input.files[0]);
+        storeToCanva(newimage, newimage);
     }
 }
 
@@ -145,7 +146,6 @@ function savePicture()
         }
         if (toSave)
             toSave.title = document.getElementById("title-img").value;
-
         if (toSave !== null && toSave.itms.length > 0 && toSave.title != '' && toSave.img != 'data:,' && toSave.img != '') {
             var obj = JSON.stringify(toSave);
             var xmlhttp = sendPostAjax("index.php?p=photo.save");

@@ -16,8 +16,6 @@ function drag(ev) {
 }
 
 var test = null;
-var dd = null;
-
 var items = [];
 
 function removeItem(itm) {
@@ -32,8 +30,6 @@ function updateItems(itm)
     items.push(itm);
 
     updateState();
-
-    console.log(items);
 }
 
 function updateState() {
@@ -71,7 +67,6 @@ function add_itm(target, itm, x, y) {
     var posX = x;
     var posY = y;
 
-    console.log("ici =>" + itm.clientHeight);
     itm.classList.add("my-deco");
 
     itm.style.top = posY + "px";
@@ -177,8 +172,3 @@ function zoom(e)
         }
     }
 }
-
-window.addEventListener('resize', function(e)
-{
-
-}, true);

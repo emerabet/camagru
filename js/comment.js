@@ -13,7 +13,6 @@ function sendcomment()
     if (comment !== null && comment.length > 0 && iduser > 0 && idphoto > 0) {
         let toSave = { iduser, token, idphoto, comment}
         var obj = JSON.stringify(toSave);
-        console.log(toSave);
         var xmlhttp = sendPostAjax("index.php?p=send.comment");
         xmlhttp.onload = function () {
             if (xmlhttp.status === 200) {
@@ -25,7 +24,6 @@ function sendcomment()
         };
         xmlhttp.send("data=" + obj);
     }
-    
 }
 
 function createNodeComment(comment)
@@ -57,6 +55,4 @@ function createNodeComment(comment)
     a.appendChild(div);
     a.appendChild(p);
     listcmt.prepend(a);
-    
-
 }

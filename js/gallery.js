@@ -47,7 +47,6 @@ function createPagitation(total, current)
 function createNodeGallery(obj)
 {
     if (gallery) {
-        console.log(obj);
         let pic = document.createElement('PICTURE');
         pic.classList.add("picture");
         pic.classList.add("img-thumbnail");

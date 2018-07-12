@@ -31,9 +31,9 @@ class PhotoController extends Controller
     private function getPathSticker($id)
     {
         if ($id == "img-hado")
-            return (__ROOT__ . "/public/img/hadoken.png");
+            return (__ROOT__ . "/img/hadoken.png");
         else if ($id == "img-champ")
-            return (__ROOT__ . "/public/img/champ.png");
+            return (__ROOT__ . "/img/champ.png");
         return null;
     }
 

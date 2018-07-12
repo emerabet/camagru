@@ -26,10 +26,9 @@ class App {
         if ($this->db_instance === null) 
         {
             $this->db_instance = new Database(
-                $config->get("db_name"), 
+                $config->get("db_dsn"), 
                 $config->get("db_user"), 
-                $config->get("db_pwd"), 
-                $config->get("db_host")
+                $config->get("db_pwd")
             );
         }
         return $this->db_instance;

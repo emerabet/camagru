@@ -8,17 +8,15 @@ class Database {
 
     private $pdo;
 
+    private $dsn;
     private $user;
     private $pwd;
-    private $db;
-    private $host;
 
-    public function __construct($db_name, $db_user, $db_pass, $db_host)
+    public function __construct($db_dsn, $db_user, $db_pass)
     {
-        $this->db = $db_name;
         $this->user = $db_user;
         $this->pwd = $db_pass;
-        $this->host = $db_host;
+        $this->dsn = $db_dsn;
     }
 
     public function getPdo()
@@ -26,7 +24,7 @@ class Database {
         if ($this->pdo === null)
         {
             try {
-                $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->db", $this->user, $this->pwd); 
+                $this->pdo = new PDO($this->dsn, $this->user, $this->pwd); 
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch (\PDOException $e) {

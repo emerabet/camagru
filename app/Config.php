@@ -7,10 +7,14 @@ class Config {
     private $settings = [];
     private static $_instance;
 
-
     public function __construct()
     {
-        $this->settings = require __ROOT__ . '/config/config.php';
+        require_once __ROOT__ . '/config/database.php';
+        $this->settings = [
+            "db_dsn" => $DB_DSN, 
+            "db_user" => $DB_USER, 
+            "db_pwd" => $DB_PASSWORD
+        ];
     }
 
     // Singleton

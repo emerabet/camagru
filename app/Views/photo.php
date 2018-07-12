@@ -2,7 +2,7 @@
 <div class="d-flex flex-column justify-content-center align-items-center">
     <div id="my-photo">
         <h1><?php echo htmlspecialchars($my_res['title']); ?></h1>
-        <img class="img-fluid" src="../upload/<?php echo $my_res['name']; ?>" />
+        <img class="img-fluid" src="upload/<?php echo $my_res['name']; ?>" />
     </div>
     <div id="my-comment" class="my-comment">
         <h4><span id="nbc"><?php echo htmlspecialchars($my_res['nb_comment']); ?></span> Commentaire(s) / <?php echo htmlspecialchars($my_res['nb_upvote']); ?> Like(s)</h4>

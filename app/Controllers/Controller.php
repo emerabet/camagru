@@ -20,9 +20,11 @@ class Controller
 
     public function render($view, $args = [])
     {
+        $app = \App\App::getInstance();
         ob_start();
         $args['logged'] = false;
         $args['user'] = null;
+        $args['title'] = $app->getTitle();
         if (isset($_SESSION['user_logged']))
         {
             $args['logged'] = true;

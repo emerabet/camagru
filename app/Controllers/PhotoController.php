@@ -279,7 +279,7 @@ class PhotoController extends Controller
             $db = $app->getDb();
             $model = new \App\Models\Photo($db);
             $res = false;
-    
+
             $o = json_decode($_POST['data']);
         
             $iduser = $_SESSION['user_logged']['id'];

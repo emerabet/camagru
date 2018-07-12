@@ -7,14 +7,14 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Camagru - <?php echo $my_title; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="nav flex-column flex-sm-row my-nav">
-        <a class="text-sm-center nav-link active" href="index.php">Home</a>
+        <a class="text-sm-center nav-link active" href="index.php">Gallerie</a>
         <?php if ($my_logged === false): ?>
           <a class="text-sm-center nav-link" href="index.php?p=login">Login</a>
           <a class="text-sm-center nav-link" href="index.php?p=register">S'inscrire</a>

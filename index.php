@@ -27,6 +27,7 @@ $db = $app->getDb();
 
 $page = $_GET['p'] ?? "";
 if ($page == "" || $page == "home") {
+    $app->setTitle("Gallerie");
     $controller = new App\Controllers\HomeController();
     $controller->home();
 }
@@ -54,6 +55,7 @@ else if ($page == "photo.show") {
 else if (isset($_SESSION['user_logged']) === false)
 {
     if ($page == 'login') {
+        $app->setTitle("Connexion");
         $controller = new App\Controllers\AuthController();
         $controller->index();
     }
@@ -64,6 +66,7 @@ else if (isset($_SESSION['user_logged']) === false)
     }
 
     else if ($page == 'register') {
+        $app->setTitle("Inscription");
         $controller = new App\Controllers\AuthController();
         $controller->register();
     }
@@ -83,6 +86,10 @@ else if (isset($_SESSION['user_logged']) === false)
         $controller->reset();
     }
 
+    else if ($page == 'photo.del') {
+        echo "Il est nécessaire de se connecter pour effectuer cette action";
+    }
+
     else {
         echo "Not Found";
         http_response_code(404);
@@ -97,6 +104,7 @@ else if (isset($_SESSION['user_logged']) === true)
     }
 
     else if ($page == 'user.account') {
+        $app->setTitle("Mon compte");
         $controller = new App\Controllers\UserController();
         $controller->index();
     }
@@ -107,6 +115,7 @@ else if (isset($_SESSION['user_logged']) === true)
     }
 
     else if ($page == 'photo') {
+        $app->setTitle("Montage photo");
         $controller = new App\Controllers\PhotoController();
         $controller->index();
     }

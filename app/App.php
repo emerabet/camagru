@@ -6,6 +6,7 @@ class App {
 
     private static $_instance;
     private $db_instance;
+    private $_title;
 
     public function __construct()
     {
@@ -46,5 +47,13 @@ class App {
     {
         unset($_SESSION['token']);
         return $this->getToken();
+    }
+
+    public function setTitle($title) {
+        $this->_title = $title;
+    }
+
+    public function getTitle() {
+        return $this->_title;
     }
 }

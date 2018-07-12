@@ -176,7 +176,7 @@ function loadPicturesUser() {
 
             side.innerHTML = '';
             json.forEach(element => {
-                addPictureToSidebar("../upload/" + element.name);
+                addPictureToSidebar("upload/" + element.name);
             });
         }
     }

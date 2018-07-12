@@ -63,7 +63,7 @@ function createNodeGallery(obj)
         let img = document.createElement("IMG");
         img.classList.add("img-fluid");
         img.classList.add("my-img"); 
-        img.setAttribute('src', "../upload/" + obj.name);
+        img.setAttribute('src', "upload/" + obj.name);
 
         a.appendChild(title);
         a.appendChild(img);

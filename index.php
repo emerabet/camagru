@@ -1,32 +1,31 @@
 <?php
 
-define('__ROOT__', dirname(dirname(__FILE__)));
+define('__ROOT__', dirname(__FILE__));
 
 session_start();
 
-require_once "../app/App.php";
-require_once "../app/Database.php";
-require_once "../app/Config.php";
+require_once "app/App.php";
+require_once "app/Database.php";
+require_once "app/Config.php";
 
-require_once "../app/Controllers/Controller.php";
-require_once "../app/Controllers/HomeController.php";
-require_once "../app/Controllers/AuthController.php";
-require_once "../app/Controllers/PhotoController.php";
-require_once "../app/Controllers/UserController.php";
+require_once "app/Controllers/Controller.php";
+require_once "app/Controllers/HomeController.php";
+require_once "app/Controllers/AuthController.php";
+require_once "app/Controllers/PhotoController.php";
+require_once "app/Controllers/UserController.php";
 
-require_once "../app/Models/Model.php";
-require_once "../app/Models/Auth.php";
-require_once "../app/Models/User.php";
-require_once "../app/Models/Photo.php";
-require_once "../app/Models/Comment.php";
-require_once "../app/Models/Like.php";
+require_once "app/Models/Model.php";
+require_once "app/Models/Auth.php";
+require_once "app/Models/User.php";
+require_once "app/Models/Photo.php";
+require_once "app/Models/Comment.php";
+require_once "app/Models/Like.php";
 
 $app = App\App::getInstance();
 $app->getToken();
-
 $db = $app->getDb();
-$page = $_GET['p'] ?? "";
 
+$page = $_GET['p'] ?? "";
 if ($page == "" || $page == "home") {
     $controller = new App\Controllers\HomeController();
     $controller->home();

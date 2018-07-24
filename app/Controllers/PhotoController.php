@@ -21,6 +21,7 @@ class PhotoController extends Controller
             $res = $model->getByPhotoId($id);
             $com = new \App\Models\Comment($db);
             $msg = $com->getByIdPhoto($id);
+            $app->setTitle($res['title']);
             $args['res'] = $res;
             $args['comments'] = $msg;
             $args['token'] = $app->refreshToken();

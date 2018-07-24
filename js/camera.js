@@ -44,8 +44,17 @@ newimage.onload = function() {
     btnTake.style.display = 'none';
 };
 
+function checkFormat(type) {
+    if (type == 'image/jpeg' || type == 'image/png' || type == 'image/gif')
+        return true;
+    return false;
+}
+
 function readURL(input) {
     if (input.files && input.files[0]) {
+        if (checkFormat(input.files[0].type) === false)
+         return ;
+
         var reader = new FileReader();
 
         reader.onload = function (e) {

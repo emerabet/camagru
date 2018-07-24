@@ -95,17 +95,12 @@ footer {
 }
 
 canvas {
-    background-color: blue; 
-    /*width: 100%;*/
-    /*height: auto;*/
+    background-color: blue;
 }
 
 .my-grid > picture {
     position : relative;
     background-color: #0e3f7a33;
-    /*width:30%;
-    margin:0.4em;
-    border: 1px solid #465362;*/
 }
 
 .img-thumbnail {

@@ -1,7 +1,7 @@
 <div id="set-tool" class="d-flex justify-content-start my-area">
     <button id="btn-webcam" class="btn">Webcam</button>
     <label class="btn btn-primary" for="my-file-selector">
-        <input id="my-file-selector" type="file" onchange="readURL(this);" style="display:none;">
+        <input id="my-file-selector" type="file" accept=".png,.jpg,.jpeg,.gif,.bmp" onchange="readURL(this);" style="display:none;">
         Upload
     </label>
     <input type="text" id="title-img" placeholder="Choisir un titre" value=""/>

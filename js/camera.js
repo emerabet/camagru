@@ -92,7 +92,6 @@ function startStream() {
             video.play();
         };
     }).catch(function(err) { 
-        // console.log(err.name + ": " + err.message); 
         started = false;
         return false;
     });

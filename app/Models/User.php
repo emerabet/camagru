@@ -27,6 +27,7 @@ class User extends Model
             return true;
         }
         catch(\PDOException $e) {
+            var_dump($e);
             return false;
         }
     }

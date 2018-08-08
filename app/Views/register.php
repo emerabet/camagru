@@ -1,5 +1,5 @@
 <div class="row justify-content-md-center">
-      <form method="POST" class="col col-sm-12 col-md-5">
+      <form method="POST" action="index.php?p=register" class="col col-sm-12 col-md-5">
             <input type="hidden" name="token" value="<?php echo htmlspecialchars($my_token); ?>" />
             
             <div class="form-group row">

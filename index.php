@@ -48,7 +48,13 @@ else if ($page == "photo.show") {
 }
 
 else if ($page == "setup") {
-    require_once "config/setup.php";
+    if (file_exists("config/setup.php")) 
+    {
+        require_once "config/setup.php";
+    } else {
+        echo "Not Found";
+        http_response_code(404);
+    }
 }
 
 else if (isset($_SESSION['user_logged']) === false)

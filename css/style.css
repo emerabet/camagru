@@ -100,7 +100,7 @@ canvas {
 
 .my-grid > picture {
     position : relative;
-    background-color: #0e3f7a33;
+    background-color: transparent;
 }
 
 .img-thumbnail {
@@ -179,8 +179,38 @@ canvas {
     width: 75%;
 }
 
+.sup-photo {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 10% / 50%;
+    cursor: pointer;
+}
+
+.com-photo {
+    background-color:#57436b;
+    color: white;
+    padding: 5px;
+    border-radius: 10% / 50%;
+}
+
+.like-photo {
+    background-color:#6b6843;
+    color: white;
+    padding: 5px;
+    border-radius: 10% / 50%;
+}
+
 .nav-link {
     padding: 2rem 1rem;
+}
+
+.toast {
+    position:fixed;
+    right:5px;
+    z-index: 500;
+    padding:20px;
+    border: solid 1px #14122d4d;
 }
 
 main {

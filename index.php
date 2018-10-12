@@ -42,11 +42,6 @@ else if ($page == "send.comment") {
     $controller->sendcomment();
 }
 
-else if ($page == "upvote") {
-    $controller = new App\Controllers\PhotoController();
-    $controller->upvote();
-}
-
 else if ($page == "photo.show") {
     $controller = new App\Controllers\PhotoController();
     $controller->show();
@@ -86,8 +81,14 @@ else if (isset($_SESSION['user_logged']) === false)
         $controller->reset();
     }
 
+    else if ($page == 'upvote') {
+        echo "Il est nécessaire de se connecter pour effectuer cette action";
+        http_response_code(403);
+    }
+
     else if ($page == 'photo.del') {
         echo "Il est nécessaire de se connecter pour effectuer cette action";
+        http_response_code(403);
     }
 
     else {
@@ -133,6 +134,11 @@ else if (isset($_SESSION['user_logged']) === true)
     else if ($page == 'photo.del') {
         $controller = new App\Controllers\PhotoController();
         $controller->del();
+    }
+
+    else if ($page == 'upvote') {
+        $controller = new App\Controllers\PhotoController();
+        $controller->upvote();
     }
 
     else {

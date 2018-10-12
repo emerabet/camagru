@@ -45,3 +45,15 @@ var pwd2 = document.getElementById("inputConfirmPassword");
 
 if (chkAccount)
     chkAccount.addEventListener("click", updateField);
+
+var displayToast = function (message, color) {
+    var toast = document.getElementById("toast");
+    toast.style.backgroundColor = color;
+    toast.innerText = message;
+    toast.style.display = '';
+    var t = setInterval(function () {
+        toast.style.display = 'none';
+        toast.innerText = '';
+        clearInterval(t);
+    }, 1500);
+}

@@ -84,8 +84,10 @@ function createNodeGallery(obj)
             xmlhttp.onload = function () {
                 if (xmlhttp.status === 200) {
                     pic.parentNode.removeChild(pic);
+                    displayToast(xmlhttp.responseText, 'green');
+                } else { 
+                    displayToast(xmlhttp.responseText, 'red');
                 }
-                alert(xmlhttp.responseText);
             };
             xmlhttp.send("data=" + data);
         });
@@ -102,11 +104,14 @@ function createNodeGallery(obj)
             xmlhttp.onload = function () {
                 if (xmlhttp.status === 200) {
                     el.innerText = parseInt(el.innerText) + 1;
+                    displayToast(xmlhttp.responseText, 'green');
                 }
                 else if (xmlhttp.status === 202) {
                     el.innerText = parseInt(el.innerText) - 1;
-                }
-                alert(xmlhttp.responseText);
+                    displayToast(xmlhttp.responseText, 'green');
+                } else {
+                    displayToast(xmlhttp.responseText, 'red');
+                }                
             };
             xmlhttp.send("data=" + data);
         });

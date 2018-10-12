@@ -19,7 +19,7 @@ if (btnTake)
             }
         }
         else
-            alert("Ajoutez une image avant");
+            displayToast("Il est necessaire d'ajouter une image avant", 'orange');
       ev.preventDefault();
     }, false);
 
@@ -157,20 +157,26 @@ function savePicture()
         if (toSave !== null && toSave.itms.length > 0 && toSave.title != '' && toSave.img != 'data:,' && toSave.img != '') {
             var obj = JSON.stringify(toSave);
             var xmlhttp = sendPostAjax("index.php?p=photo.save");
-            xmlhttp.onload = function () {          
-                canvas.style.display = 'none';
-                toSave.img = '';
-                if (started === true) {                
-                    embed_video.style.display = '';          
+            xmlhttp.onload = function () {
+                    if (xmlhttp.status === 200) {
+                        canvas.style.display = 'none';
+                        toSave.img = '';
+                        if (started === true) {                
+                            embed_video.style.display = '';          
+                        }
+                        else {
+                            newimage.style.display = '';
+                        }
+                        setEvent();
+                        loadPicturesUser();
+                        displayToast(xmlhttp.responseText, 'green');
+                } else {
+                    displayToast(xmlhttp.responseText, 'red');
                 }
-                else {
-                    newimage.style.display = '';
-                }
-                setEvent();
-                loadPicturesUser();
-                alert(xmlhttp.responseText);
             };
             xmlhttp.send("data=" + obj);
+        } else {
+            displayToast("Au moins 1 sticker et un titre sont attendus avant de sauvegarder", 'orange');
         }
     }
 }

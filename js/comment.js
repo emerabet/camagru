@@ -19,7 +19,9 @@ function sendcomment()
                 document.getElementById("nbc").innerText = parseInt(document.getElementById("nbc").innerText) + 1;
                 document.getElementById("post-com").value = "";
                 createNodeComment(comment);
-                alert(xmlhttp.responseText);
+                displayToast(xmlhttp.responseText, 'green');
+            } else {
+                displayToast(xmlhttp.responseText, 'red');
             }
         };
         xmlhttp.send("data=" + obj);

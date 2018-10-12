@@ -27,6 +27,7 @@
     </nav>
 
     <div class="container-fluid my-container">
+    <div id="toast" class="toast" style="display: none;"></div>
       <div class="row">
         <main class="col-sm-12 col-md-<?php echo $col; ?>">
           <?php echo $content; ?>

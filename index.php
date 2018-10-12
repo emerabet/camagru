@@ -47,6 +47,10 @@ else if ($page == "photo.show") {
     $controller->show();
 }
 
+else if ($page == "setup") {
+    require_once "config/setup.php";
+}
+
 else if (isset($_SESSION['user_logged']) === false)
 {
     if ($page == 'login') {
@@ -71,9 +75,9 @@ else if (isset($_SESSION['user_logged']) === false)
         $controller->verify();
     }
 
-    else if ($page == 'auth.forgot') {
+    else if ($page == 'user.forgot') {
         $controller = new App\Controllers\AuthController();
-        $controller->forgot();
+        $controller->reset();
     }
 
     else if ($page == 'user.reset') {

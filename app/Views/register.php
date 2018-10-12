@@ -1,3 +1,15 @@
+<?php 
+if (isset($my_success) && $my_success == "KO"): ?>
+<div class="alert alert-warning" role="alert">
+      Le compte n'a pas pu etre crée.
+</div>
+<?php endif; ?>
+
+<?php if (isset($my_success) && $my_success == "OK"): ?>
+<div class="alert alert-success" role="alert">
+      Un mail de confirmation vient de vous etre envoyé.
+</div>
+<?php endif; ?>
 <div class="row justify-content-md-center">
       <form method="POST" action="index.php?p=register" class="col col-sm-12 col-md-5">
             <input type="hidden" name="token" value="<?php echo htmlspecialchars($my_token); ?>" />

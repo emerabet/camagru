@@ -92,21 +92,21 @@ class AuthController extends Controller
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
                 $errors[] = "Format mail incorrect";
-            
             if (count($errors) == 0)
             {
                 $pass = password_hash($pwd1, PASSWORD_DEFAULT);
                 $code = bin2hex(random_bytes(16));
                 if ($model->add($username, $email, $pass, $code, 0)) {
                     $this->send_verification_mail($email, $code);
-                    $args["success"] = "Un mail de confirmation vient de vous etre envoyé";
+                    $args["success"] = "OK";
                 }
                 else {
+                    $args["success"] = "KO";
                     $errors[] = "Le compte n'a pas pu etre cree";
                 }
             }
         }
-        $args = ["errors" => $errors];
+        $args["errors"] = $errors;
         $args['token'] = $app->refreshToken();
         $this->render("register", $args);
     }

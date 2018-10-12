@@ -34,4 +34,20 @@ class Database {
         return $this->pdo;
     }
 
+    public function getPdoInstall()
+    {
+        if ($this->pdo === null)
+        {
+            try {
+                $dsn = explode(";", $this->dsn);
+                $this->pdo = new PDO("mysql:;$dsn[1]", $this->user, $this->pwd);
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch (\PDOException $e) {
+                throw new \Exception('Could not connect to database');
+            }
+        }
+        return $this->pdo;
+    }
+
 }

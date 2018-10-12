@@ -9,6 +9,10 @@
         $sql = file_get_contents($db_camagru);
         $sql_array = explode(";", $sql);
 
+        if (!file_exists('upload')) {
+            mkdir('upload', 0777, true);
+        }
+
         foreach ($sql_array as $val) 
         {
             if (isset($val) === true && $val != '') 

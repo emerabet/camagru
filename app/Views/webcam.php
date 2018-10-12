@@ -24,4 +24,8 @@
 <div id="set-img" class="d-flex align-content-stretch flex-wrap my-area">
     <img id="img-hado" draggable="true" class="img-fluid" src="img/hadoken.png" />
     <img id="img-champ" draggable="true" class="img-fluid" src="img/champ.png" />
+    <img id="img-coca" draggable="true" class="img-fluid" src="img/coca.png" />
+    <img id="img-kebab" draggable="true" class="img-fluid" src="img/kebab.png" />
+    <img id="img-worldcup" draggable="true" class="img-fluid" src="img/worldcup.png" />
+    <img id="img-lunette" draggable="true" class="img-fluid" src="img/lunette.png" />
 </div>

@@ -127,6 +127,10 @@ wpimg = document.getElementById("my-wrapper");
 function setEvent() {
     document.getElementById("img-hado").addEventListener("dragstart", drag);
     document.getElementById("img-champ").addEventListener("dragstart", drag);
+    document.getElementById("img-coca").addEventListener("dragstart", drag);
+    document.getElementById("img-kebab").addEventListener("dragstart", drag);
+    document.getElementById("img-worldcup").addEventListener("dragstart", drag);
+    document.getElementById("img-lunette").addEventListener("dragstart", drag);
 
     if (setimg) {
         setimg.addEventListener("drop", drop);
@@ -143,6 +147,10 @@ function setEvent() {
 function removeEvent() {
     document.getElementById("img-hado").removeEventListener("dragstart", drag);
     document.getElementById("img-champ").removeEventListener("dragstart", drag);
+    document.getElementById("img-coca").removeEventListener("dragstart", drag);
+    document.getElementById("img-kebab").removeEventListener("dragstart", drag);
+    document.getElementById("img-worldcup").removeEventListener("dragstart", drag);
+    document.getElementById("img-lunette").removeEventListener("dragstart", drag);
 
     if (setimg) {
         setimg.removeEventListener("drop", drop);

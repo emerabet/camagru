@@ -35,6 +35,14 @@ class PhotoController extends Controller
             return (__ROOT__ . "/img/hadoken.png");
         else if ($id == "img-champ")
             return (__ROOT__ . "/img/champ.png");
+        else if ($id == "img-coca")
+            return (__ROOT__ . "/img/coca.png");
+        else if ($id == "img-kebab")
+            return (__ROOT__ . "/img/kebab.png");
+        else if ($id == "img-worldcup")
+            return (__ROOT__ . "/img/worldcup.png");
+        else if ($id == "img-lunette")
+            return (__ROOT__ . "/img/lunette.png");
         return null;
     }
 

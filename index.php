@@ -25,6 +25,11 @@ $app = App\App::getInstance();
 $app->getToken();
 $db = $app->getDb();
 
+if (file_exists("config/setup.php") === true) {
+    require_once "config/setup.php";
+    exit;
+}
+
 $page = $_GET['p'] ?? "";
 if ($page == "" || $page == "home") {
     $app->setTitle("Gallerie");
@@ -45,16 +50,6 @@ else if ($page == "send.comment") {
 else if ($page == "photo.show") {
     $controller = new App\Controllers\PhotoController();
     $controller->show();
-}
-
-else if ($page == "setup") {
-    if (file_exists("config/setup.php")) 
-    {
-        require_once "config/setup.php";
-    } else {
-        echo "Not Found";
-        http_response_code(404);
-    }
 }
 
 else if (isset($_SESSION['user_logged']) === false)

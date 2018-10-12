@@ -35,6 +35,7 @@
     }
 ?>
 
+<h1>Cliquez pour installer</h1>
 <form action="index.php?p=setup" method="POST">
     <input type="submit" value="OK" name="submit">
 </form>

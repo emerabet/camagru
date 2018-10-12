@@ -93,7 +93,7 @@ class Photo extends Model
     public function getPage($page, $nb)
     {
         try {
-            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(`upvote`.`id_photo`) as nb_upvote, photo.id_user 
+            $sql = $this->db->getPdo()->prepare("SELECT `photo`.`id`, `title`, `name`, `created`, COUNT(`comment`.`id`) as nb_comment, COUNT(DISTINCT(`upvote`.`id_user`)) as nb_upvote, photo.id_user 
                                                 FROM `photo`
                                                 LEFT OUTER JOIN `comment` ON `photo`.`id` = `comment`.`id_photo` 
                                                 LEFT OUTER JOIN `upvote` ON `photo`.`id` = `upvote`.`id_photo` 
@@ -123,9 +123,7 @@ class Photo extends Model
             $sql->execute();
 
             $heu = $sql->rowCount();
-            var_dump($heu);
             if ($heu > 0){
-               echo "ici";
                 return true;
             }
             return false;

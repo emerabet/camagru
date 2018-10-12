@@ -108,6 +108,7 @@ class AuthController extends Controller
         }
         $args = ["errors" => $errors];
         $args['token'] = $app->refreshToken();
+        var_dump($args);
         $this->render("register", $args);
     }
 
